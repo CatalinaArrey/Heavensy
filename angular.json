@@ -95,6 +95,9 @@
               "node_modules/@ctrl/ngx-emoji-mart/picker.css"
             ]
           }
+        },
+        "deploy": {
+          "builder": "angular-cli-ghpages:deploy"
         }
       }
     }

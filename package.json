@@ -33,6 +33,7 @@
     "@fortawesome/angular-fontawesome": "^3.0.0",
     "@fortawesome/fontawesome-svg-core": "^7.1.0",
     "@fortawesome/free-solid-svg-icons": "^7.0.0",
+    "angular-cli-ghpages": "^3.0.2",
     "lucide-angular": "^0.574.0",
     "rxjs": "~7.8.0",
     "socket.io-client": "^4.8.2",

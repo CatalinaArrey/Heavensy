@@ -1,3 +1,5 @@
+@use "sass:color";
+
 /* --- Variables --- */
 $primary: #6366f1; /* Color Indigo principal */
 $primary-light: #e0e7ff;
@@ -216,7 +218,7 @@ $border-color: #e2e8f0;
     border: 2px solid $primary;
     color: white;
     box-shadow: 0 4px 15px rgba($primary, 0.3);
-    &:hover { background: darken($primary, 5%); border-color: darken($primary, 5%); }
+    &:hover { background: color.adjust($primary, $lightness: -5%); border-color: color.adjust($primary, $lightness: -5%); }
   }
 }
 
