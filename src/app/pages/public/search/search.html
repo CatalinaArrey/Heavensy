@@ -1,0 +1,163 @@
+<div class="container">
+  <nav class="navbar">
+    <div class="logo">Heavency</div>
+    <div class="nav-links">
+      <a href="#">Quienes somos</a>
+      <a href="#" class="active">Planes</a>
+      <a href="#">Comunidad</a>
+    </div>
+    <div class="nav-actions">
+      <i class="far fa-bell icon-btn"></i>
+      <button class="btn-primary">Iniciar sesión</button>
+    </div>
+  </nav>
+
+  <header class="hero">
+    <h1>Explora servicios dentro de nuestra comunidad</h1>
+    <div class="search-box">
+      <div class="input-wrapper">
+        <i class="fas fa-search"></i>
+        <input type="text" placeholder="¿Qué servicio necesitas hoy?">
+      </div>
+      <button class="btn-search">Buscar</button>
+    </div>
+    <div class="tags">
+      <span>Psicología</span><span>Masajes</span><span>Kinesiología</span><span>Gasfitería</span><span>Programación</span>
+    </div>
+  </header>
+
+  <main class="content-layout">
+    <aside class="filters">
+      <section>
+        <div class="section-header">
+          <h3>Categorías</h3>
+          <span class="top-badge" *ngIf="!mostrarTodasCategorias">Top 5</span>
+        </div>
+        <div class="search-box">
+          <i class="fas fa-search"></i>
+          <input 
+            type="text" 
+            placeholder="Buscar categoría..." 
+            [(ngModel)]="busquedaCategoria"
+            (input)="filtrarCategorias()">
+        </div>
+        
+        <div class="checkboxes-list">
+          @for (cat of categoriasVisibles; track cat) {
+            <label class="custom-check">
+              <input 
+                type="checkbox" 
+                [checked]="categoriasFiltradas.includes(cat)" 
+                (change)="toggleCategoria(cat)">
+              <span></span>
+              <span class="label-text">{{ cat }}</span>
+              <span class="count">{{ contarPorCategoria(cat) }}</span>
+            </label>
+          }
+        </div>
+
+        <a *ngIf="!mostrarTodasCategorias" href="#" class="view-more" (click)="mostrarTodasCategorias = true; $event.preventDefault()">
+          <i class="fas fa-plus"></i> Ver todas las categorías
+        </a>
+      </section>
+
+      <section>
+        <h3>Modalidad</h3>
+        <label class="custom-check">
+          <input type="radio" name="modalidad" value="presencial" (change)="aplicarFiltros()">
+          <span></span>
+          <span class="label-text">Presencial</span>
+        </label>
+        <label class="custom-check">
+          <input type="radio" name="modalidad" value="online" (change)="aplicarFiltros()">
+          <span></span>
+          <span class="label-text">Online</span>
+        </label>
+      </section>
+
+      <section>
+        <h3>Región</h3>
+        <div class="checkboxes-list">
+          @for (reg of regionesVisibles; track reg) {
+            <label class="custom-check">
+              <input 
+                type="checkbox" 
+                [checked]="regionesFiltradas.includes(reg)" 
+                (change)="toggleRegion(reg)">
+              <span></span>
+              <span class="label-text">{{ reg }}</span>
+            </label>
+          }
+        </div>
+
+        <a *ngIf="!mostrarTodasRegiones && regionesVisibles.length < regiones.length" href="#" class="view-more" (click)="mostrarTodasRegiones = true; $event.preventDefault()">
+          <i class="fas fa-chevron-down"></i> Ver más regiones
+        </a>
+      </section>
+
+      <section>
+        <h3>Rango de Precio</h3>
+        <div class="slider-container">
+          <input type="range" class="price-slider" min="0" max="100000" [(ngModel)]="precioMaximo" (input)="aplicarFiltros()">
+          <div class="price-labels">
+            <span>$0</span><span>{{ precioMaximo | currency:'CLP':'symbol':'0.0' }}</span>
+          </div>
+        </div>
+      </section>
+
+      <button class="btn-clear" (click)="limpiarFiltros()">Limpiar filtros</button>
+    </aside>
+
+    <section class="results">
+      <div class="results-header">
+        <span>Mostrando <strong>{{ totalProfesionales }}</strong> profesionales disponibles</span>
+        <div class="sort">
+          Ordenar por: 
+          <select>
+            <option>Recomendados</option>
+          </select>
+        </div>
+      </div>
+
+      <div class="card-grid">
+        @for (pro of profesionalesPaginados; track pro.id) {
+          <div class="card">
+            <div class="card-header" [style.backgroundImage]="'linear-gradient(135deg,' + pro.bgColor + ',' + pro.bgColorAlt + ')'">
+              <div class="avatar" [style.background]="'linear-gradient(135deg,' + pro.avatarColor + ',' + pro.avatarColorAlt + ')'">
+                {{ pro.initials }}
+              </div>
+            </div>
+            <div class="card-body">
+              <div class="title-row">
+                <h4>{{ pro.nombre }}</h4>
+                <span class="rating"><i class="fas fa-star"></i> {{ pro.rating }}</span>
+              </div>
+              <p class="category">{{ pro.categoria }}</p>
+              <p class="description">{{ pro.bio }}</p>
+              <hr class="divider">
+              <div class="card-footer">
+                <div class="price">
+                  <small>DESDE</small>
+                  <strong>{{ pro.precio | currency:'CLP':'symbol-narrow':'1.0-0' }}</strong>
+                </div>
+                <button class="btn-arrow"><i class="fas fa-arrow-right"></i></button>
+              </div>
+            </div>
+          </div>
+        }
+      </div>
+
+      <div class="pagination">
+        <button class="btn-page" (click)="paginaAnterior()" [disabled]="paginaActual === 1"><i class="fas fa-chevron-left"></i></button>
+        @for (pagina of paginasArray; track pagina) {
+          <button class="btn-page" [class.active]="paginaActual === pagina" (click)="irPagina(pagina)">{{ pagina }}</button>
+        }
+        <button class="btn-page" (click)="paginaSiguiente()" [disabled]="paginaActual === totalPaginas"><i class="fas fa-chevron-right"></i></button>
+      </div>
+    </section>
+  </main>
+
+  <button class="floating-theme-btn">
+    <i class="far fa-moon"></i>
+  </button>
+</div>

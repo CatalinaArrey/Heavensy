@@ -1,0 +1,74 @@
+<div class="page-container">
+  
+  <header class="hero">
+    <div class="blob blob-left"></div>
+    <div class="blob blob-right"></div>
+
+    <div class="hero-content">
+      <span class="badge-pill">PRECIOS TRANSPARENTES</span>
+      <h1>Nuestros Planes</h1>
+      <p>Elige el plan que se adapta a tus necesidades y escala tu negocio como freelancer con el poder de la IA.</p>
+    </div>
+  </header>
+
+  <main class="plans-grid">
+    
+    <div 
+      class="plan-card" 
+      *ngFor="let plan of plans" 
+      [ngClass]="{'popular-card': plan.isPopular}"
+    >
+      
+      <div class="popular-badge" *ngIf="plan.isPopular">MÁS POPULAR</div>
+
+      <div class="card-header">
+        <h3 [class.text-primary]="plan.isPopular">{{ plan.title }}</h3>
+        <p class="desc">{{ plan.description }}</p>
+      </div>
+
+      <div class="card-price">
+        <span class="prefix" *ngIf="plan.pricePrefix">{{ plan.pricePrefix }}&nbsp;</span>
+        <span class="amount">{{ plan.price }}</span>
+        <span class="period" *ngIf="plan.period">{{ plan.period }}</span>
+      </div>
+
+      <div class="card-features">
+        <div class="features-intro" *ngIf="plan.featuresTitle">
+          <i class="fa-solid fa-plus"></i>
+          <span>{{ plan.featuresTitle }}</span>
+        </div>
+
+        <ul>
+          <li *ngFor="let feature of plan.features">
+            <i class="fa-solid fa-circle-check check-icon"></i>
+            <span>{{ feature }}</span>
+          </li>
+        </ul>
+      </div>
+
+      <div class="card-footer">
+        <button [ngClass]="plan.buttonStyle === 'solid' ? 'btn-solid' : 'btn-outline'">
+          {{ plan.buttonText }}
+          <i class="fa-solid" [ngClass]="plan.buttonIcon"></i>
+        </button>
+      </div>
+
+    </div>
+
+  </main>
+
+  <section class="help-section">
+    <div class="help-box">
+      <div class="avatars">
+        <img src="https://i.pravatar.cc/150?img=68" alt="User">
+        <img src="https://i.pravatar.cc/150?img=12" alt="User">
+        <img src="https://i.pravatar.cc/150?img=33" alt="User">
+      </div>
+      <div class="help-text">
+        <strong>¿Tienes dudas sobre los planes?</strong>
+        <a href="#">Hablar con un asesor ahora</a>
+      </div>
+    </div>
+  </section>
+
+</div>

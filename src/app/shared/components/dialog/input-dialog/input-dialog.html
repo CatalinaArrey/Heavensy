@@ -1,0 +1,19 @@
+<div class="dialog-container">
+  <h2 class="dialog-title">{{ data.title }}</h2>
+  <p class="dialog-message">{{ data.message }}</p>
+
+  <input 
+    type="text" 
+    class="dialog-input" 
+    [(ngModel)]="inputValue"
+    (keydown.enter)="onConfirm()">
+  
+  <div class="dialog-actions">
+    <button (click)="onCancel()" class="btn btn-secondary">
+      Cancelar
+    </button>
+    <button (click)="onConfirm()" class="btn btn-primary">
+      Guardar
+    </button>
+  </div>
+</div>

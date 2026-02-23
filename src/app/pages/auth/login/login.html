@@ -1,0 +1,30 @@
+<div class="login-container">
+  <div class="login-card">
+    <h2>¡Bienvenido de vuelta!</h2>
+    <p class="subtitle">Ingresa tus credenciales para acceder</p>
+
+    <form (ngSubmit)="onSubmit()">
+      <div class="input-group">
+        <label>Email</label>
+        <input type="email" [(ngModel)]="email" name="email" placeholder="nombre@ejemplo.com" required>
+      </div>
+
+      <div class="input-group">
+        <label>Contraseña</label>
+        <input type="password" [(ngModel)]="password" name="password" placeholder="••••••••" required>
+      </div>
+
+      <div class="actions">
+        <a href="#" class="forgot-pass">¿Olvidaste tu contraseña?</a>
+      </div>
+
+      <button type="submit" class="btn-primary" [disabled]="loading">{{ loading ? 'Ingresando...' : 'Ingresar' }}</button>
+    </form>
+
+    <div *ngIf="error" class="error">{{ error }}</div>
+
+    <div class="footer">
+      ¿No tienes cuenta? <a (click)="registerComponent()">Regístrate</a>
+    </div>
+  </div>
+</div>

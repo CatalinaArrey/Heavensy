@@ -1,0 +1,6 @@
+[
+  { "id": 1, "comando": "/gracias", "texto": "¡Muchas gracias por contactarnos! ¿En qué más podemos ayudarte?" },
+  { "id": 2, "comando": "/precios", "texto": "Nuestros servicios de psicoterapia tienen un valor de $XXXX por sesión." },
+  { "id": 3, "comando": "/ubicacion", "texto": "Estamos ubicados en Calle Falsa 123, Providencia." },
+  { "id": 4, "comando": "/horarios", "texto": "Nuestros horarios de atención son de Lunes a Viernes de 09:00 a 18:00 hrs." }
+]

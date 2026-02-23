@@ -1,0 +1,185 @@
+<nav class="navbar">
+  <div class="nav-brand">
+    <div class="brand-icon">
+      <fa-icon [icon]="faWand" class="icon-fa"></fa-icon>
+    </div>
+    <span class="brand-name">Heavency</span>
+  </div>
+  
+  <div class="nav-center">
+    <div class="step-indicator active"></div>
+    <div class="step-indicator"></div>
+    <div class="step-indicator"></div>
+  </div>
+
+  <div class="nav-actions">
+    <button class="btn-login">Iniciar Sesión</button>
+  </div>
+</nav>
+
+<div class="layout-container">
+  
+  <main class="form-column">
+    <header class="form-header">
+      <span class="step-label">PASO 1 DE 3</span>
+      <h1>Configura tu perfil profesional</h1>
+      <p>Completa los datos necesarios para verificar tu identidad y comenzar a gestionar tus servicios en Chile.</p>
+    </header>
+
+    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
+      
+      <section class="form-section" formGroupName="personal">
+        <div class="section-title">
+          <fa-icon [icon]="faUserTie" class="icon"></fa-icon>
+          <h2>DATOS PERSONALES</h2>
+        </div>
+
+        <div class="upload-grid">
+          <div class="upload-box">
+            <div class="icon-circle"><fa-icon [icon]="faId"></fa-icon></div>
+            <span class="upload-label">Cargar Carnet / ID</span>
+          </div>
+          <div class="upload-box">
+            <div class="icon-circle"><fa-icon [icon]="faUser"></fa-icon></div>
+            <span class="upload-label">Foto de Perfil</span>
+          </div>
+        </div>
+
+        <div class="inputs-grid">
+          <div class="form-group">
+            <label>Correo Electrónico</label>
+            <input type="email" formControlName="email" placeholder="ejemplo@correo.cl">
+          </div>
+          <div class="form-group">
+            <label>Teléfono Móvil</label>
+            <div class="phone-input">
+              <span class="prefix">+56</span>
+              <input type="tel" formControlName="phone" placeholder="9 1234 5678">
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label>Contraseña de acceso</label>
+            <input type="password" formControlName="password" placeholder="••••••••">
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section" formGroupName="banking">
+        <div class="section-title">
+          <fa-icon [icon]="faWallet" class="icon"></fa-icon>
+          <h2>COMISIONES Y PAGOS</h2>
+        </div>
+
+        <div class="inputs-grid">
+          <div class="form-group">
+            <label>Banco</label>
+            <div class="select-wrapper">
+              <select formControlName="bank">
+                <option value="banco_estado">Banco Estado</option>
+                <option value="santander">Santander</option>
+                <option value="chile">Banco de Chile</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group">
+            <label>Tipo de Cuenta</label>
+            <div class="select-wrapper">
+              <select formControlName="accountType">
+                <option value="rut">Cuenta RUT / Vista</option>
+                <option value="corriente">Cuenta Corriente</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label>Número de Cuenta</label>
+            <input type="text" formControlName="accountNumber" placeholder="000-00000-0">
+          </div>
+        </div>
+      </section>
+
+      <section class="form-section">
+        <div class="section-title">
+          <fa-icon [icon]="faTicket" class="icon"></fa-icon>
+          <h2>CÓDIGO DE INVITADO</h2>
+        </div>
+
+        <div class="code-box">
+          <input type="text" formControlName="referral" placeholder="ESCRIBE TU CÓDIGO AQUÍ">
+          <small>Usa un código para obtener beneficios exclusivos en tu suscripción.</small>
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <button type="submit" class="btn-submit">
+          Registrarse
+        </button>
+        <p class="terms">Al continuar aceptas nuestros términos y condiciones de servicio.</p>
+      </div>
+
+    </form>
+  </main>
+
+  <aside class="preview-column">
+    <div class="blob blob-top"></div>
+    <div class="blob blob-bottom"></div>
+
+    <div class="preview-content">
+      <div class="preview-header">
+        <h3>TU CREDENCIAL DIGITAL</h3>
+        <p>Así es como te verán tus clientes en la plataforma.</p>
+      </div>
+
+      <div class="glass-card">
+        <div class="card-top">
+          <div class="card-profile">
+            <div class="avatar-box">
+              <img [src]="previewData.img" alt="Profile">
+            </div>
+            <div class="info-box">
+              <h4>{{ previewData.name }}</h4>
+              <span class="role">{{ previewData.role }}</span>
+              <div class="verified-badge">
+                <fa-icon [icon]="faCheck" class="check"></fa-icon>
+                <span>VERIFIED SPECIALIST</span>
+              </div>
+            </div>
+          </div>
+          <div class="brand-sparkle">
+            <fa-icon [icon]="faWand"></fa-icon>
+          </div>
+        </div>
+
+        <div class="card-bottom">
+          <div class="qr-box">
+            <fa-icon [icon]="faQrcode"></fa-icon>
+          </div>
+          <div class="card-meta">
+            <span class="label">MEMBER ID</span>
+            <span class="value">{{ previewData.id }}</span>
+          </div>
+          <div class="card-badge">
+            <span class="small">CHILEAN PROFESSIONAL</span>
+            <span class="pill">HEAVENCY PRO</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="security-badge">
+        <span class="dot"></span>
+        <span>DATOS CIFRADOS PUNTO A PUNTO</span>
+      </div>
+      <p class="security-text">
+        Tu información está protegida bajo estándares bancarios. Heavency nunca compartirá tus datos sensibles sin tu autorización.
+      </p>
+    </div>
+  </aside>
+</div>
+
+<footer class="site-footer">
+  <span>© 2024 Heavency Chile • Gestión Eficiente para Especialistas</span>
+  <div class="links">
+    <a href="#">Privacidad</a>
+    <a href="#">Soporte</a>
+    <a href="#">Condiciones</a>
+  </div>
+</footer>

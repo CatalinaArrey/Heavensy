@@ -1,0 +1,139 @@
+<div class="dashboard-layout">
+  
+  <aside class="sidebar">
+    
+    <nav class="sidebar-menu">
+      <a href="#" class="menu-item active">
+        <i class="fas fa-user"></i> <span>Mi Perfil</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-th-large"></i> <span>Panel de Control</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-briefcase"></i> <span>Mis Servicios</span>
+      </a>
+      <a href="#" class="menu-item">
+        <i class="fas fa-file-invoice-dollar"></i> <span>Facturación</span>
+      </a>
+    </nav>
+  </aside>
+
+  <main class="main-content">
+    
+    <div class="profile-header">
+      <div class="header-text">
+        <h1>Mi Perfil</h1>
+        <p>Resumen de tu información personal.</p>
+      </div>
+      <button class="btn-edit">
+        <i class="fas fa-pencil-alt"></i> Editar
+      </button>
+    </div>
+
+    <div class="card main-banner">
+      <div class="banner-content">
+        <img [src]="usuario.avatar" alt="Avatar">
+        <div class="user-main-info">
+          <h2>{{ usuario.nombre }}</h2>
+          <span class="rut-text"><i class="far fa-id-card"></i> RUT: {{ usuario.rut }}</span>
+          <div class="badges">
+            <span class="badge badge-blue">{{ usuario.profesion }}</span>
+            <span class="badge badge-purple">{{ usuario.plan }}</span>
+            <span class="badge badge-green">Verificado</span>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <div class="profile-grid">
+      
+      <div class="card info-card">
+        <h3><i class="far fa-user"></i> Información Personal</h3>
+        <div class="info-list">
+          <div class="info-item">
+            <span class="label">Nombre</span>
+            <span class="val">{{ usuario.detalles.nombreCompleto }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Email</span>
+            <span class="val">{{ usuario.detalles.email }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Teléfono</span>
+            <span class="val">{{ usuario.detalles.telefono }}</span>
+          </div>
+          <div class="info-item">
+            <span class="label">Nacimiento</span>
+            <span class="val">{{ usuario.detalles.fechaNac }}</span>
+          </div>
+        </div>
+      </div>
+
+      <div class="card info-card">
+        <h3><i class="fas fa-briefcase"></i> Información Profesional</h3>
+        <div class="prof-content">
+          <div>
+            <label>Título / Rubro</label>
+            <p class="strong-text">{{ usuario.profesional.titulo }}</p>
+          </div>
+          <div>
+            <label>Descripción</label>
+            <p>{{ usuario.profesional.descripcion }}</p>
+          </div>
+          <div class="info-split">
+            <div><label>Categoría</label><p>{{ usuario.profesional.categoria }}</p></div>
+            <div style="text-align: right;"><label>Web</label><p style="color:#8b5cf6; font-weight:600;">{{ usuario.profesional.web }}</p></div>
+          </div>
+        </div>
+      </div>
+
+      <div class="card info-card">
+        <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
+        <div class="location-box">
+          <div class="loc-header">
+            <div class="loc-icon"><i class="fas fa-building"></i></div>
+            <div class="loc-text">
+              <div style="font-weight: 700; font-size: 14px;">Av. Providencia 1234, Of. 505</div>
+              <div style="color: #6b7280; font-size: 13px;">Providencia, Santiago</div>
+            </div>
+          </div>
+          <div class="map-placeholder">Vista Mapa</div>
+        </div>
+      </div>
+
+      <div class="card sub-card">
+        <div class="sub-header" style="display:flex; justify-content:space-between; align-items:center;">
+          <h3><i class="fas fa-star"></i> Suscripción</h3>
+          <span class="sub-badge">ACTIVA</span>
+        </div>
+        <div class="sub-body">
+          <label>Plan Actual</label>
+          <h2 class="plan-name">Heavenly Pro</h2>
+          <div class="sub-footer">
+            <div><label>Renovación</label><strong>14 Dic 2024</strong></div>
+            <div style="text-align: right;"><label>Monto</label><strong>$15.990 CLP</strong></div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+
+    <div class="card preferences-card">
+      <div class="profile-header" style="margin-bottom: 20px;">
+        <h3 style="margin:0;"><i class="fas fa-cog"></i> Preferencias</h3>
+        <a href="#" style="color: #8b5cf6; font-size: 13px; font-weight: 600;">Editar</a>
+      </div>
+      <div class="pref-grid">
+        <div class="pref-item">
+          <div class="pref-icon"><i class="far fa-credit-card"></i></div>
+          <div class="pref-text"><strong>Visa •••• 4242</strong><span>Método de pago principal</span></div>
+        </div>
+        <div class="pref-item">
+          <div class="pref-icon"><i class="far fa-bell"></i></div>
+          <div class="pref-text"><strong>Notificaciones</strong><span>Push y Email activados</span></div>
+        </div>
+      </div>
+    </div>
+
+  </main>
+</div>

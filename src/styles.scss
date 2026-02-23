@@ -1,0 +1,30 @@
+
+body {
+  margin: 0;
+  background-color: #F8F8FF;
+  font-family: 'Inter', sans-serif;
+}
+
+
+.cdk-overlay-backdrop.cdk-overlay-dark-backdrop {
+  background: rgba(44, 44, 44, 0.4); 
+  backdrop-filter: blur(4px); 
+}
+
+/* Ensure the app occupies the full viewport and no max constraints limit it */
+html, body, app-root {
+  height: 100%;
+  width: 100%;
+}
+
+body {
+  min-height: 100vh;
+  min-width: 100vw;
+  box-sizing: border-box;
+}
+
+/* Make any top-level layout take full viewport and prevent horizontal overflow */
+.main-layout, .main-content-area {
+  max-width: 100vw;
+  max-height: 100vh;
+}

@@ -1,0 +1,39 @@
+.emoji-picker-container {
+  position: relative;
+  display: inline-block;
+
+  .tool-btn {
+    background: transparent;
+    border: none;
+    cursor: pointer;
+    padding: 8px;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    color: #666;
+    transition: background 0.2s;
+
+    &:hover {
+      background-color: rgba(0, 0, 0, 0.05);
+    }
+  }
+
+  .picker-floating-panel {
+    position: absolute;
+    bottom: 45px; // Se abre hacia arriba del botón
+    right: 0;
+    z-index: 1000;
+    box-shadow: 0 5px 25px rgba(0, 0, 0, 0.15);
+    border-radius: 8px;
+    overflow: hidden;
+
+    // Ajustes para asegurar que el componente interno se vea bien
+    emoji-mart {
+      display: block;
+      width: 350px; // Ancho estándar para evitar el amontonamiento
+      max-width: 90vw;
+      border: 1px solid #d9d9d9;
+    }
+  }
+}

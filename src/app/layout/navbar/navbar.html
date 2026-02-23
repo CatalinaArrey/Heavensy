@@ -1,0 +1,30 @@
+<nav class="navbar-container">
+  
+  <div class="navbar-left">
+    <a class="brand-link" routerLink="/">
+      <div class="brand-icon">
+        <i class="fa-solid fa-wand-magic-sparkles"></i>
+      </div>
+      <span class="brand-text">Heavency</span>
+    </a>
+  </div>
+
+  <div class="navbar-center">
+    <a routerLink="/about" class="nav-link">Quienes somos</a>
+    <a routerLink="/planes" class="nav-link">Planes</a>
+    <a routerLink="/search" class="nav-link">Búsqueda servicios</a>
+  </div>
+
+  <div class="navbar-right">
+    <ng-container *ngIf="!isAuthenticated; else logged">
+      <button class="btn-login" (click)="gotoLogin()">Iniciar sesión</button>
+    </ng-container>
+
+    <ng-template #logged>
+      <button class="btn-logout" (click)="logout()">
+        <i class="fa-solid fa-arrow-right-from-bracket"></i> Salir
+      </button>
+    </ng-template>
+  </div>
+
+</nav>

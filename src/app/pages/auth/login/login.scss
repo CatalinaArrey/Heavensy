@@ -1,0 +1,127 @@
+$primary: #8b5cf6;
+$primary-hover: #7c3aed;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+$bg-page: #f3f4f6;
+
+:host {
+  
+  height: 100vh;
+  font-family: 'Inter', sans-serif;
+}
+
+.login-container {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  min-height: 100vh;
+  background-color: $bg-page;
+  padding: 20px;
+}
+
+.login-card {
+  background: white;
+  width: 100%;
+  max-width: 400px;
+  padding: 40px;
+  border-radius: 24px;
+  box-shadow: 0 10px 25px -5px rgba(0, 0, 0, 0.1), 0 8px 10px -6px rgba(0, 0, 0, 0.1);
+  text-align: center;
+
+  .brand {
+    font-size: 24px;
+    font-weight: 800;
+    color: $primary;
+    margin-bottom: 24px;
+    letter-spacing: -0.5px;
+  }
+
+  h2 {
+    font-size: 22px;
+    font-weight: 700;
+    color: $text-dark;
+    margin: 0 0 8px 0;
+  }
+
+  .subtitle {
+    font-size: 14px;
+    color: $text-gray;
+    margin: 0 0 32px 0;
+  }
+}
+
+.input-group {
+  margin-bottom: 20px;
+  text-align: left;
+
+  label {
+    
+    font-size: 13px;
+    font-weight: 600;
+    color: $text-dark;
+    margin-bottom: 6px;
+  }
+
+  input {
+    width: 100%;
+    padding: 12px 16px;
+    border: 1px solid #e5e7eb;
+    border-radius: 12px;
+    font-size: 14px;
+    background: #f9fafb;
+    outline: none;
+    box-sizing: border-box;
+    transition: all 0.2s;
+
+    &:focus {
+      background: white;
+      border-color: $primary;
+      box-shadow: 0 0 0 3px rgba(139, 92, 246, 0.15);
+    }
+  }
+}
+
+.actions {
+  display: flex;
+  justify-content: flex-end;
+  margin-bottom: 24px;
+
+  .forgot-pass {
+    font-size: 13px;
+    color: $text-gray;
+    text-decoration: none;
+    font-weight: 500;
+    &:hover { color: $primary; }
+  }
+}
+
+.btn-primary {
+  width: 100%;
+  background: $primary;
+  color: white;
+  border: none;
+  padding: 14px;
+  border-radius: 12px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: background 0.2s;
+
+  &:hover {
+    background: $primary-hover;
+  }
+}
+
+.footer {
+  margin-top: 32px;
+  font-size: 14px;
+  color: $text-gray;
+
+  a {
+    color: $primary;
+    font-weight: 600;
+    text-decoration: none;
+    cursor: pointer;
+    &:hover { text-decoration: underline; }
+  }
+}

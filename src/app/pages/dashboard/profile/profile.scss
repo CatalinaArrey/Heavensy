@@ -1,0 +1,223 @@
+/* --- 1. RESET GLOBAL (IMPORTANTE PARA QUE NO SE ROMPA) --- */
+* {
+  box-sizing: border-box;
+  margin: 0;
+  padding: 0;
+}
+
+/* --- Variables --- */
+$primary-purple: #8b5cf6;
+$primary-gradient: linear-gradient(135deg, #7c3aed 0%, #4f46e5 100%);
+$text-dark: #111827;
+$text-muted: #6b7280;
+$border-light: #e5e7eb;
+$card-radius: 20px;
+$card-shadow: 0 4px 6px -1px rgba(0, 0, 0, 0.05), 0 2px 4px -1px rgba(0, 0, 0, 0.03);
+
+/* --- Layout Principal --- */
+.dashboard-layout {
+  display: flex;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: $text-dark;
+  width: 100%;
+  overflow-x: hidden; /* Evita scroll horizontal indeseado */
+}
+
+/* --- Sidebar (Izquierda) --- */
+.sidebar {
+  width: 260px; /* Un poco más angosta para dar espacio al contenido */
+  padding: 32px 20px;
+  flex-shrink: 0; /* Evita que se aplaste */
+  border-right: 1px solid rgba(0,0,0,0.03); /* Separación sutil */
+
+  .sidebar-menu {
+    display: flex;
+    flex-direction: column;
+    gap: 8px;
+    position: sticky;
+    top: 32px;
+  }
+
+  .menu-item {
+    display: flex;
+    align-items: center;
+    gap: 14px;
+    padding: 12px 16px;
+    border-radius: 10px;
+    text-decoration: none;
+    color: #4b5563;
+    font-weight: 500;
+    font-size: 14px;
+    transition: all 0.2s;
+
+    i { width: 20px; text-align: center; }
+
+    &:hover {
+      background: rgba(139, 92, 246, 0.08);
+      color: $primary-purple;
+    }
+
+    &.active {
+      background: #ede9fe;
+      color: $primary-purple;
+      font-weight: 600;
+    }
+  }
+}
+
+/* --- Área de Contenido (Derecha) --- */
+.main-content {
+  flex: 1; /* Ocupa el espacio restante */
+  width: 0; /* TRUCO CLAVE: Evita que el contenido rompa el layout */
+  min-width: 0; /* Refuerzo para Firefox/Flexbox */
+  padding: 32px 40px;
+  
+  /* Header */
+  .profile-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 32px;
+
+    h1 { font-size: 24px; font-weight: 700; color: #1e1b4b; }
+    p { color: $text-muted; margin-top: 4px; font-size: 14px; }
+  }
+
+  .btn-edit {
+    background: $primary-purple;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 20px;
+    font-weight: 600;
+    font-size: 13px;
+    cursor: pointer;
+    display: flex; align-items: center; gap: 8px;
+    box-shadow: 0 4px 10px rgba(139, 92, 246, 0.3);
+    &:hover { opacity: 0.9; }
+  }
+}
+
+/* --- Tarjeta General --- */
+.card {
+  background: white;
+  border-radius: $card-radius;
+  padding: 28px;
+  box-shadow: $card-shadow;
+  border: 1px solid white;
+}
+
+/* --- Banner (El que se veía muy ancho) --- */
+.main-banner {
+  margin-bottom: 28px;
+  
+  .banner-content {
+    display: flex;
+    align-items: center;
+    gap: 32px; /* Reducido para que no se vea tan separado */
+    
+    img {
+      width: 90px; height: 90px;
+      border-radius: 50%;
+      object-fit: cover;
+      border: 4px solid white;
+      box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+    }
+    
+    .user-main-info {
+      h2 { font-size: 22px; margin: 0; color: #111827; }
+      .rut-text { font-size: 13px; color: $text-muted; display: block; margin: 4px 0 12px 0; }
+      
+      .badges {
+        display: flex; gap: 8px; flex-wrap: wrap;
+        .badge { padding: 4px 12px; border-radius: 12px; font-size: 11px; font-weight: 600; }
+        .badge-blue { background: #eff6ff; color: #3b82f6; }
+        .badge-purple { background: #f5f3ff; color: #8b5cf6; }
+        .badge-green { background: #f0fdf4; color: #22c55e; }
+      }
+    }
+  }
+}
+
+/* --- Grillas --- */
+.profile-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr); /* 2 columnas forzadas */
+  gap: 24px;
+  margin-bottom: 24px;
+}
+
+/* Títulos de tarjetas */
+h3 {
+  font-size: 16px; font-weight: 700; color: #1f2937; margin: 0 0 20px 0;
+  display: flex; align-items: center; gap: 10px;
+  i { color: $primary-purple; font-size: 14px; }
+}
+
+/* Listas de info */
+.info-list .info-item {
+  display: flex; justify-content: space-between;
+  padding: 12px 0;
+      font-size: 14px;
+  &:last-child { border-bottom: none; }
+  .label { color: $text-muted; }
+  .val { font-weight: 500; text-align: right; }
+}
+
+/* Info Profesional */
+.prof-content {
+  display: flex; flex-direction: column; gap: 16px;
+  label { font-size: 11px; color: $text-muted; font-weight: 600; text-transform: uppercase; display: block; margin-bottom: 4px; }
+  p { font-size: 14px; margin: 0; color: #374151; line-height: 1.5; }
+  .strong-text { font-weight: 600; color: #111827; }
+  .info-split { display: grid; grid-template-columns: 1fr 1fr; gap: 16px; margin-top: 8px; }
+}
+
+/* Ubicación */
+.location-box {
+  .loc-header { display: flex; gap: 12px; margin-bottom: 16px; align-items: flex-start; }
+  .loc-icon { min-width: 40px; height: 40px; background: #eff6ff; color: #3b82f6; border-radius: 10px; display: flex; align-items: center; justify-content: center; }
+  .map-placeholder { height: 120px; background: #f8fafc; border: 2px dashed #e2e8f0; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 12px; color: $text-muted; }
+}
+
+/* Tarjeta Suscripción */
+.sub-card {
+  background: $primary-gradient !important;
+  color: white; border: none;
+  display: flex; flex-direction: column; justify-content: space-between;
+  
+  .sub-header h3 { color: white; i { color: rgba(255,255,255,0.8); } }
+  .sub-badge { background: rgba(255,255,255,0.2); padding: 4px 8px; border-radius: 6px; font-size: 10px; font-weight: 700; }
+  
+  .plan-name { font-size: 32px; font-weight: 800; margin: 8px 0 24px 0; }
+  
+  .sub-footer {
+    display: flex; justify-content: space-between; padding-top: 16px; border-top: 1px solid rgba(255,255,255,0.2);
+    label { color: rgba(255,255,255,0.7); font-size: 11px; display: block; }
+    strong { font-size: 15px; }
+  }
+}
+
+/* Preferencias */
+.preferences-card {
+  .pref-grid {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 24px;
+    .pref-item {
+      display: flex; align-items: center; gap: 16px;
+      padding: 12px; border-radius: 12px; background: #f9fafb;
+      .pref-icon { width: 40px; height: 40px; background: white; border-radius: 50%; display: flex; align-items: center; justify-content: center; box-shadow: 0 2px 5px rgba(0,0,0,0.05); }
+      .pref-text { display: flex; flex-direction: column; strong { font-size: 14px; } span { font-size: 12px; color: $text-muted; } }
+    }
+  }
+}
+
+/* Responsive: Cuando la pantalla es muy chica, todo a 1 columna */
+@media (max-width: 960px) {
+  .dashboard-layout { flex-direction: column; }
+  .sidebar { width: 100%; border-right: none; border-bottom: 1px solid $border-light; padding: 16px; }
+  .sidebar-menu { flex-direction: row; overflow-x: auto; padding-bottom: 4px; }
+  .menu-item { flex-shrink: 0; }
+  .main-content { padding: 20px; }
+  .profile-grid, .pref-grid { grid-template-columns: 1fr; }
+}

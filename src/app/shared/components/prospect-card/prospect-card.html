@@ -1,0 +1,23 @@
+<div class="card-body">
+  
+  <div class="avatar-placeholder">
+    <img *ngIf="prospecto.avatar; else noAvatar" [src]="prospecto.avatar" [alt]="prospecto.nombre" class="avatar-img" (error)="onAvatarError($event, prospecto.nombre)" />
+    <ng-template #noAvatar>
+      <img [src]="avatarFallback(prospecto.nombre)" [alt]="prospecto.nombre" class="avatar-img" />
+    </ng-template>
+  </div>
+
+  <div class="card-content">
+    <span class="prospect-name">{{ prospecto.nombre }}</span>
+    <p class="prospect-desc">{{ prospecto.desc }}</p>
+  </div>
+</div>
+
+<div class="card-footer">
+  <app-icon 
+    [name]="prospecto.source" 
+    [size]="24" 
+    class="source-icon" 
+    [ngClass]="prospecto.source">
+  </app-icon>
+</div>

@@ -1,0 +1,107 @@
+/* Variables (Mismas que antes) */
+$primary-blue: #6385E6; 
+$primary-hover: #5a75d0;
+$text-dark: #4b5563;
+$text-brand: #6385E6;
+$bg-nav: rgba(255, 255, 255, 0.95);
+
+:host {
+  display: block;
+  font-family: 'Inter', sans-serif;
+}
+
+.navbar-container {
+  display: flex;
+  align-items: center; /* Alineación vertical centrada */
+  /* CAMBIO 1: Quitamos justify-content: space-between */
+  /* justify-content: space-between; <-- ELIMINADO */
+  
+  gap: 40px; /* CAMBIO 2: Espacio constante entre Logo y Links */
+  
+  padding: 0 40px;
+  height: 80px;
+  background-color: $bg-nav;
+  backdrop-filter: blur(10px);
+  position: fixed;
+  top: 0; left: 0; right: 0;
+  width: 100%;
+  z-index: 1000;
+  box-sizing: border-box;
+  border-bottom: 1px solid #f3f4f6; 
+}
+
+/* IZQUIERDA: LOGO */
+.navbar-left {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+}
+
+.brand-link {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  text-decoration: none;
+  cursor: pointer;
+  &:hover { opacity: 0.9; }
+}
+
+.brand-icon {
+  width: 40px; height: 40px;
+  background-color: $primary-blue;
+  border-radius: 8px;
+  display: flex; align-items: center; justify-content: center;
+  color: white; font-size: 20px;
+  box-shadow: 0 4px 10px rgba(99, 133, 230, 0.3);
+}
+
+.brand-text {
+  font-size: 26px; font-weight: 700; color: $text-brand; letter-spacing: -0.5px;
+}
+
+/* CENTRO: LINKS DE NAVEGACIÓN (Ahora estarán a la izquierda) */
+.navbar-center {
+  display: flex;
+  gap: 32px;
+  align-items: center;
+  /* Ya no están centrados en la página, sino pegados al gap del container */
+}
+
+.nav-link {
+  text-decoration: none; color: $text-dark; font-weight: 500; font-size: 16px; transition: color 0.2s;
+  &:hover { color: $primary-blue; }
+}
+
+/* DERECHA: BOTONES */
+.navbar-right {
+  display: flex;
+  align-items: center;
+  flex: 0 0 auto;
+  
+  /* CAMBIO 3: Esto es lo que empuja el botón a la derecha del todo */
+  margin-left: auto; 
+}
+
+.btn-login {
+  background-color: $primary-blue;
+  color: white; border: none; font-family: 'Inter', sans-serif;
+  font-weight: 600; font-size: 16px; padding: 12px 28px;
+  border-radius: 999px; cursor: pointer;
+  transition: transform 0.2s, background-color 0.2s;
+  box-shadow: 0 4px 12px rgba(99, 133, 230, 0.25);
+
+  &:hover { background-color: $primary-hover; transform: translateY(-1px); }
+}
+
+.btn-logout {
+  background: transparent; border: 1px solid #e5e7eb; padding: 8px 16px;
+  border-radius: 999px; cursor: pointer; color: $text-dark;
+  font-weight: 500; font-size: 14px; display: flex; align-items: center; gap: 8px;
+  &:hover { background-color: #f9fafb; color: #ef4444; }
+}
+
+@media (max-width: 900px) {
+  .navbar-center { display: none; }
+  .navbar-container { padding: 0 20px; }
+  .brand-text { font-size: 22px; }
+}

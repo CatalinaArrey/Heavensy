@@ -1,0 +1,140 @@
+// Variables
+$primary: #a78bfa;
+$primary-dark: #8b5cf6;
+$primary-bg: #f5f3ff;
+$text-dark: #1f2937;
+$text-gray: #6b7280;
+$white: #ffffff;
+
+:host {
+  display: block;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  background: #f5f3ff;
+}
+
+.landing-container {
+  max-width: 100%;
+  margin: 0 auto;
+  padding: 0 40px;
+  display: flex;
+  flex-direction: column;
+  min-height: 100vh;
+}
+
+/* --- NAVBAR --- */
+.navbar {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 20px 0;
+  border-bottom: 1px solid rgba(0,0,0,0.05);
+
+  .logo {
+    font-size: 28px;
+    font-weight: 800;
+    color: $primary-dark;
+    letter-spacing: -0.8px;
+  }
+
+  .nav-actions {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+  }
+}
+
+.btn-search {
+  background: transparent;
+  border: none;
+  font-size: 20px;
+  cursor: pointer;
+  padding: 8px;
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: scale(1.1);
+  }
+}
+
+.btn-login {
+  background: #1A55B2;
+  color: #fff;
+  padding: 10px 24px;
+  border-radius: 8px;
+  border: none;
+  font-weight: 700;
+  font-size: 14px;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    box-shadow: 0 4px 12px rgba(26, 85, 178, 0.3);
+    transform: translateY(-1px);
+  }
+}
+
+/* --- HERO SECTION --- */
+.hero-main {
+  flex: 1;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  padding: 100px 0;
+  text-align: center;
+}
+
+.hero-title {
+  font-size: 80px;
+  line-height: 1.15;
+  font-weight: 900;
+  color: $text-dark;
+  margin: 0 0 32px 0;
+  max-width: 1000px;
+  letter-spacing: -1px;
+
+  .highlight-text {
+    color: $primary-dark;
+    font-style: italic;
+  }
+
+  @media (max-width: 768px) {
+    font-size: 48px;
+    letter-spacing: -0.5px;
+  }
+}
+
+.hero-subtitle {
+  font-size: 18px;
+  color: $text-gray;
+  margin: 0 0 48px 0;
+  max-width: 700px;
+  line-height: 1.7;
+  font-weight: 400;
+
+  @media (max-width: 768px) {
+    font-size: 16px;
+  }
+}
+
+.btn-hero {
+  background: #2d3748;
+  color: $white;
+  border: none;
+  padding: 14px 32px;
+  border-radius: 30px;
+  font-size: 15px;
+  font-weight: 600;
+  cursor: pointer;
+  transition: all 0.2s;
+
+  &:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 8px 20px rgba(0,0,0,0.15);
+  }
+
+  &:active {
+    transform: translateY(0);
+  }
+}

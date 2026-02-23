@@ -1,0 +1,55 @@
+.calendar-card {
+  background: #fff;
+  border-radius: 12px;
+  padding: 12px;
+  box-shadow: 0 6px 18px rgba(20, 23, 45, 0.06);
+}
+
+.calendar-header {
+  display: flex;
+  justify-content: space-between;
+  font-size: 13px;
+  margin-bottom: 12px;
+}
+
+.calendar-header strong {
+  display: block;
+  font-size: 14px;
+}
+
+.calendar-sub {
+  font-size: 12px;
+}
+
+.cal-nav {
+  cursor: pointer;
+}
+
+.calendar-grid {
+  display: grid;
+  grid-template-columns: repeat(6, 1fr);
+  gap: 6px;
+  text-align: center;
+  font-size: 11px;
+
+}
+
+.calendar-grid .day-name {
+
+  font-size: 10px;
+  margin-bottom: 4px;
+}
+
+.calendar-grid .day {
+  padding: 6px 0;
+  cursor: pointer;
+  border-radius: 6px;
+}
+
+.calendar-grid .day:hover {
+  background: #f3f4f6;
+}
+
+.calendar-grid .day.faded {
+  color: #e5e7eb;
+}

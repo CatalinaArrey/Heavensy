@@ -1,0 +1,182 @@
+.inbox-page-wrapper {
+  position: relative;
+  min-height: calc(100vh - 60px - 40px); 
+}
+
+.inbox-container {
+  display: flex;
+  gap: 20px;
+  padding-bottom: 20px; 
+  overflow-x: auto;
+  min-height: calc(100vh - 60px - 40px);
+  align-items: flex-start;
+  padding-left: 20px;
+}
+  
+.inbox-column {
+  flex-shrink: 0; 
+  background-color: #f5fafe; 
+  border-radius: 8px;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  display: flex;
+  flex-direction: column;
+  flex-basis: 320px;
+  flex-grow: 1;
+}
+
+.column-header {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 16px 20px;
+  border-bottom: 1px solid #F0F0F0; 
+  position: relative;
+
+  h3 {
+    margin: 0;
+    font-size: 16px;
+    font-weight: 700;
+    color: #333;
+    letter-spacing: 0.5px;
+    text-transform: uppercase; 
+    padding: 0 40px; 
+    text-align: center;
+  }
+
+  .count {
+    position: absolute;
+    right: 20px; 
+    top: 50%;
+    transform: translateY(-50%); 
+    
+    font-size: 14px;
+    font-weight: 700;
+    padding: 2px 8px;
+    border-radius: 12px;
+    background-color: #F0F8FF;
+    color: #6a5acd;
+
+
+  }
+}
+
+.card-list {
+  padding: 10px;
+  min-height: 200px; 
+  flex-grow: 1; 
+  overflow-y: auto; 
+}
+
+
+.prospect-card {
+  background-color: #FAFAFA; 
+  padding: 12px 15px;
+  border-radius: 6px;
+  margin-bottom: 10px;
+  border: 1px solid #F0F0F0;
+  box-shadow: 0 1px 3px rgba(0, 0, 0, 0.03);
+  cursor: grab;
+  transition: box-shadow 0.2s ease;
+
+}
+
+
+.add-column-floating-btn {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 64px;
+  height: 64px;
+  background-color: #FFFFFF; 
+  border: 2px #DBDBDB;
+  border-radius: 50%; 
+  color: #777;
+  cursor: pointer;
+  
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.05);
+  transition: all 0.2s ease;
+
+  position: fixed; 
+  top: 50%; 
+  right: 40px; 
+  transform: translateY(-50%); 
+  z-index: 10; 
+
+  &:hover {
+    border-color: #b0c4de;
+    color: #333;
+    transform: translateY(-50%) scale(1.05);
+    box-shadow: 0 6px 16px rgba(0, 0, 0, 0.08);
+  }
+
+  svg {
+    width: 32px; 
+    height: 32px;
+    stroke-width: 2.5;
+  }
+}
+
+.delete-column-btn {
+  position: absolute;
+  left: 15px; 
+  top: 50%;
+  transform: translateY(-50%);
+  
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  width: 32px;
+  height: 32px;
+  padding: 0;
+  
+  background: transparent;
+  border: none;
+  border-radius: 50%;
+  color: #999; 
+  cursor: pointer;
+  transition: all 0.2s ease;
+
+  &:hover {
+    background-color: #FFF0F0; 
+    color: #E63946;
+  }
+}
+
+.cdk-drag-preview {
+  box-sizing: border-box;
+  border-radius: 6px;
+  box-shadow: 0 5px 10px rgba(0, 0, 0, 0.2); 
+}
+
+.prospect-card-placeholder {
+  background: #F0F8FF;
+  border: 1px dashed #b0c4de;
+  min-height: 60px;
+  transition: transform 0.2s ease;
+  border-radius: 6px;
+  margin-bottom: 10px;
+}
+
+.cdk-drag-animating {
+  transition: transform 250ms cubic-bezier(0, 0, 0.2, 1);
+}
+
+/* Responsive adjustments */
+@media (max-width: 768px) {
+  
+  .inbox-container {
+    flex-direction: column;
+    align-items: center;
+    overflow-x: hidden;
+    padding-left: 16px;
+    padding-right: 16px; 
+    padding-bottom: 100px; 
+  }
+
+  .add-column-floating-btn {
+    top: auto; 
+    bottom: 30px; 
+    right: 20px;
+    transform: none; 
+  }
+}
