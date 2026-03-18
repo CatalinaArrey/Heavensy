@@ -1,7 +1,7 @@
 export const environment = {
   production: false,
-  apiUrl: 'https://heavensy-api-backend.onrender.com/api', 
-  socketUrl: 'https://heavensy-api-backend.onrender.com'   
+  apiUrl: 'https://heavensy-site.onrender.com/api', 
+  socketUrl: 'https://heavensy-site.onrender.com'   
 };
 
 // Control whether the app should auto-login with default credentials on startup

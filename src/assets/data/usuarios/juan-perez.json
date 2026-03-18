@@ -1,0 +1,52 @@
+{
+  "usuario": {
+    "nombre": "Juan Pérez",
+    "profesion": "Consultor Financiero Estratégico",
+    "avatar": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg",
+    "verificado": true,
+    "acercaDe": "Especialista en planificación financiera para pequeñas y medianas empresas. Ayudo a optimizar flujos de caja y estructurar planes de crecimiento sostenible con más de 10 años de experiencia en el mercado chileno.",
+    "contacto": {
+      "email": "contacto@juanperezfinanzas.cl",
+      "web": "www.juanperezfinanzas.cl",
+      "ubicacion": "Providencia, Santiago"
+    },
+    "lat": -33.42628,
+    "lng": -70.61254
+  },
+  "servicios": [
+    { "titulo": "Asesoría Financiera Mensual", "categoria": "Consultoría", "precio": 250000, "icon": "fas fa-chart-line", "color": "#8b5cf6" },
+    { "titulo": "Declaración de Renta", "categoria": "Contabilidad", "precio": 80000, "icon": "fas fa-file-invoice", "color": "#3b82f6" },
+    { "titulo": "Auditoría Legal PYME", "categoria": "Legal", "precio": 500000, "icon": "fas fa-gavel", "color": "#10b981" }
+  ],
+  "disponibilidad": [
+    { "dia": "Lunes", "horas": "09:00 - 18:00", "disponible": true },
+    { "dia": "Martes", "horas": "09:00 - 18:00", "disponible": true },
+    { "dia": "Miércoles", "horas": "No disponible", "disponible": false },
+    { "dia": "Jueves", "horas": "09:00 - 14:00", "disponible": true },
+    { "dia": "Viernes", "horas": "09:00 - 18:00", "disponible": true }
+  ],
+  "resenas": {
+    "promedio": 4.8,
+    "total": 42,
+    "comentarios": [
+      {
+        "autor": "María González",
+        "fecha": "Hace 1 semana",
+        "calificacion": 5,
+        "texto": "Juan es un excelente profesional. Me ayudó a ordenar las finanzas de mi PYME en un par de sesiones."
+      },
+      {
+        "autor": "Tech Solutions SpA",
+        "fecha": "Hace 1 mes",
+        "calificacion": 5,
+        "texto": "Trabajamos con él mensualmente y la asesoría ha sido clave para nuestro crecimiento."
+      },
+      {
+        "autor": "Carlos Ruiz",
+        "fecha": "Hace 2 meses",
+        "calificacion": 4,
+        "texto": "Muy claro en sus explicaciones, lo recomiendo totalmente para temas tributarios."
+      }
+    ]
+  }
+}

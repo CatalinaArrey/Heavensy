@@ -1,0 +1,7 @@
+[
+  { "titulo": "Asesoría Financiera Mensual", "categoria": "Consultoría", "precio": 250000, "activo": true, "icon": "fas fa-chart-line", "color": "#8b5cf6" },
+  { "titulo": "Declaración de Renta", "categoria": "Contabilidad", "precio": 80000, "activo": true, "icon": "fas fa-file-invoice", "color": "#3b82f6" },
+  { "titulo": "Consultoría Estratégica", "categoria": "Negocios", "precio": 120000, "activo": false, "icon": "far fa-lightbulb", "color": "#f59e0b" },
+  { "titulo": "Auditoría Legal PYME", "categoria": "Legal", "precio": 500000, "activo": true, "icon": "fas fa-gavel", "color": "#10b981" },
+  { "titulo": "Plan de Negocios Inicial", "categoria": "Emprendimiento", "precio": 150000, "activo": false, "icon": "fas fa-rocket", "color": "#f97316" }
+]

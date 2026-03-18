@@ -1,0 +1,46 @@
+{
+  "usuario": {
+    "nombre": "María Pérez",
+    "profesion": "Abogada Laboral y Corporativa",
+    "avatar": "https://img.freepik.com/free-psd/3d-illustration-business-woman-with-glasses_23-2149436114.jpg",
+    "verificado": true,
+    "acercaDe": "Especialista en derecho laboral y redacción de contratos corporativos. Ayudo a empresas a mantenerse al día con la normativa legal y evitar multas, con más de 8 años de experiencia litigando y asesorando en la quinta región.",
+    "contacto": {
+      "email": "asesoria@mariaperezlegal.cl",
+      "web": "www.mariaperezlegal.cl",
+      "ubicacion": "Viña del Mar, Valparaíso"
+    },
+    "lat": -33.01535,
+    "lng": -71.55043
+  },
+  "servicios": [
+    { "titulo": "Auditoría Legal PYME", "categoria": "Legal", "precio": 500000, "icon": "fas fa-gavel", "color": "#10b981" },
+    { "titulo": "Redacción de Contratos", "categoria": "Legal", "precio": 120000, "icon": "fas fa-file-signature", "color": "#3b82f6" },
+    { "titulo": "Representación Laboral", "categoria": "Juicios", "precio": 800000, "icon": "fas fa-balance-scale", "color": "#f59e0b" }
+  ],
+  "disponibilidad": [
+    { "dia": "Lunes", "horas": "10:00 - 16:00", "disponible": true },
+    { "dia": "Martes", "horas": "10:00 - 16:00", "disponible": true },
+    { "dia": "Miércoles", "horas": "No disponible", "disponible": false },
+    { "dia": "Jueves", "horas": "10:00 - 16:00", "disponible": true },
+    { "dia": "Viernes", "horas": "Solo urgencias", "disponible": true }
+  ],
+  "resenas": {
+    "promedio": 4.9,
+    "total": 15,
+    "comentarios": [
+      {
+        "autor": "Inversiones Sur",
+        "fecha": "Hace 2 semanas",
+        "calificacion": 5,
+        "texto": "Nos redactó todos los contratos de los nuevos empleados en tiempo récord y sin errores."
+      },
+      {
+        "autor": "TechSolutions Ltda.",
+        "fecha": "Hace 1 mes",
+        "calificacion": 4,
+        "texto": "Excelente disposición para resolver dudas legales complejas. Muy recomendada."
+      }
+    ]
+  }
+}

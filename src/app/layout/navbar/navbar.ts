@@ -1,7 +1,8 @@
 import { Component, inject } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { RouterModule, Router } from '@angular/router';
-import { AuthService } from '../../core/services/auth.service'; 
+import { AuthService } from '../../core/services/auth.service';
+import { finalize } from 'rxjs/operators'; 
 
 @Component({
   selector: 'app-navbar',
@@ -27,12 +28,10 @@ export class NavbarComponent {
   }
 
   logout() {
-    this.auth.logout().subscribe({
-      next: () => this.router.navigate(['/']),
-      error: () => {
-        localStorage.removeItem('access_token');
-        this.router.navigate(['/']);
-      }
-    });
+    localStorage.removeItem('access_token');
+    localStorage.removeItem('refresh_token');
+    this.auth.logout().pipe(
+      finalize(() => this.router.navigate(['/']))
+    ).subscribe();
   }
 }

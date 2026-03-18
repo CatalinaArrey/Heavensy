@@ -16,8 +16,8 @@
   },
   {
     "id": 2,
-    "nombre": "María Pérez",
-    "username": "maria-perez",
+    "nombre": "María Gómez",
+    "username": "maria-gomez", 
     "categoria": "Legal",
     "region": "Valparaíso",
     "rating": 4.9,

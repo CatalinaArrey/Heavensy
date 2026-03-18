@@ -1,0 +1,25 @@
+{
+  "nombre": "Juan Pérez",
+  "rut": "12.345.678-9",
+  "profesion": "Consultor Financiero",
+  "plan": "Plan Pro",
+  "avatar": "https://img.freepik.com/free-psd/3d-illustration-human-avatar-profile_23-2150671142.jpg",
+  "detalles": {
+    "nombreCompleto": "Juan Antonio Pérez González",
+    "email": "juan.perez@example.cl",
+    "telefono": "+56 9 1234 5678",
+    "fechaNac": "15 de Enero, 1985"
+  },
+  "profesional": {
+    "titulo": "Consultor Financiero & Estratégico",
+    "descripcion": "Especialista en planificación financiera para pequeñas y medianas empresas.",
+    "categoria": "Legal y Finanzas",
+    "web": "www.juanperezfinanzas.cl"
+  },
+  "ubicacion": {
+    "direccion": "Av. Providencia 1234, Of. 505",
+    "ciudad": "Providencia, Santiago",
+    "lat": -33.42628,
+    "lng": -70.61254
+  }
+}

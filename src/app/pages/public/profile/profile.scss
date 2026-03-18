@@ -1,0 +1,205 @@
+$primary-purple: #8b5cf6;
+$text-dark: #111827;
+$text-muted: #6b7280;
+$border-light: #e5e7eb;
+
+.public-layout {
+  background-color: #f8fafc;
+  min-height: 100vh;
+  font-family: 'Inter', sans-serif;
+  color: $text-dark;
+}
+
+/* Navbar */
+.public-navbar {
+  background: white;
+  padding: 16px 40px;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  border-bottom: 1px solid $border-light;
+  
+  .brand-logo { font-size: 20px; font-weight: 700; color: #1e1b4b; display: flex; align-items: center; gap: 10px; }
+  .logo-box { width: 24px; height: 24px; background: $primary-purple; border-radius: 6px; }
+  .nav-links { display: flex; gap: 20px; }
+  .nav-links a { text-decoration: none; color: $text-muted; font-weight: 500; font-size: 14px; &:hover { color: $primary-purple; } }
+}
+
+/* Contenedor Principal Centrado */
+.public-container {
+  max-width: 1000px;
+  margin: 40px auto;
+  padding: 0 20px;
+}
+
+/* Cards Generales */
+.card { background: white; border-radius: 16px; padding: 24px; box-shadow: 0 2px 10px rgba(0,0,0,0.03); border: 1px solid rgba(0,0,0,0.05); }
+
+/* Banner Hero */
+.hero-card {
+  margin-bottom: 24px;
+  .hero-content { display: flex; gap: 32px; align-items: center; }
+  .hero-avatar { width: 120px; height: 120px; border-radius: 50%; object-fit: cover; border: 4px solid white; box-shadow: 0 4px 12px rgba(0,0,0,0.1); }
+  h1 { font-size: 28px; margin: 0; color: #111827; }
+  .profession-title { font-size: 16px; color: $text-muted; margin: 8px 0 20px 0; }
+  .hero-actions { display: flex; gap: 12px; }
+  
+  .badge-green { background: #dcfce7; color: #16a34a; padding: 4px 10px; border-radius: 12px; font-size: 12px; font-weight: 600; display: flex; align-items: center; gap: 4px;}
+}
+
+/* Botones */
+.btn-primary { background: $primary-purple; color: white; border: none; padding: 10px 24px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; transition: 0.2s; &:hover { opacity: 0.9; } }
+.btn-outline { background: white; border: 1px solid $border-light; padding: 10px 20px; border-radius: 8px; font-weight: 600; font-size: 14px; cursor: pointer; &:hover { background: #f9fafb; } }
+.btn-outline.small { padding: 8px 16px; font-size: 13px; }
+.text-purple { color: $primary-purple; font-weight: 500; }
+
+/* Grilla de Contenido */
+.public-grid {
+  display: grid;
+  grid-template-columns: 1fr 1.5fr; /* Columna izquierda más estrecha */
+  gap: 24px;
+}
+
+.left-column { display: flex; flex-direction: column; gap: 24px; }
+.right-column { display: flex; flex-direction: column; gap: 16px; }
+
+/* Textos e Info */
+h3 { font-size: 16px; margin: 0 0 16px 0; border-bottom: 1px solid $border-light; padding-bottom: 12px; }
+.section-title { font-size: 20px; margin: 0 0 16px 0; }
+.bio-text { font-size: 14px; line-height: 1.6; color: #4b5563; }
+.contact-list { margin-top: 20px; display: flex; flex-direction: column; gap: 12px; }
+.contact-item { display: flex; align-items: center; gap: 10px; font-size: 14px; i { color: $text-muted; width: 16px; text-align: center; } }
+
+/* Mapa */
+.map-wrapper { width: 100%; border-radius: 12px; overflow: hidden; border: 1px solid $border-light; background: #f3f4f6; }
+
+/* Lista de Servicios */
+.services-list { display: flex; flex-direction: column; gap: 16px; }
+.service-item {
+  display: flex; align-items: center; justify-content: space-between; gap: 16px; padding: 20px;
+  .svc-icon { width: 48px; height: 48px; border-radius: 12px; display: flex; align-items: center; justify-content: center; font-size: 20px; flex-shrink: 0; }
+  .svc-details { flex: 1; h4 { margin: 0 0 6px 0; font-size: 15px; } }
+  .badge-tag { background: #f3f4f6; color: #4b5563; padding: 4px 8px; border-radius: 6px; font-size: 11px; font-weight: 600; }
+  .svc-price strong { font-size: 18px; color: #111827; }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .public-grid { grid-template-columns: 1fr; }
+  .hero-content { flex-direction: column; text-align: center; }
+  .hero-actions { justify-content: center; }
+  .service-item { flex-wrap: wrap; }
+}
+
+/* --- Disponibilidad --- */
+.availability-list {
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+.day-item {
+  display: flex;
+  justify-content: space-between;
+  padding: 10px 12px;
+  background: #f9fafb;
+  border-radius: 8px;
+  font-size: 13px;
+  
+  .day-name { font-weight: 600; color: #374151; }
+  .day-hours { color: #10b981; font-weight: 500; } /* Verde por defecto */
+  
+  &.unavailable {
+    background: #f3f4f6;
+    opacity: 0.7;
+    .day-name { color: $text-muted; }
+    .day-hours { color: $text-muted; }
+  }
+}
+
+/* --- Reseñas --- */
+.text-yellow { color: #f59e0b; }
+.reviews-summary {
+  display: flex;
+  align-items: center;
+  gap: 6px;
+  font-size: 15px;
+  strong { color: #111827; }
+}
+
+.reviews-list {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+.review-card {
+  padding: 20px;
+  .review-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: flex-start;
+    margin-bottom: 12px;
+  }
+  .review-user {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+  }
+  .avatar-initials {
+    width: 36px;
+    height: 36px;
+    background: #ede9fe;
+    color: $primary-purple;
+    border-radius: 50%;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-weight: 600;
+    font-size: 14px;
+  }
+  .review-meta {
+    display: flex;
+    flex-direction: column;
+    strong { font-size: 14px; color: #111827; }
+    span { font-size: 12px; color: $text-muted; margin-top: 2px; }
+  }
+  .review-stars {
+    font-size: 12px;
+    letter-spacing: 2px;
+  }
+  .review-text {
+    font-size: 14px;
+    line-height: 1.6;
+    color: #4b5563;
+    margin: 0;
+    font-style: italic;
+  }
+}
+
+/* --- Navegación para volver --- */
+.back-navigation {
+  margin-bottom: 24px;
+}
+
+.btn-back {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  color: $text-muted;
+  text-decoration: none;
+  font-weight: 600;
+  font-size: 14px;
+  transition: all 0.2s ease;
+  
+  i {
+    font-size: 14px;
+    transition: transform 0.2s ease;
+  }
+
+  &:hover {
+    color: $primary-purple;
+    
+    i {
+      transform: translateX(-4px); /* Animación suave a la izquierda */
+    }
+  }
+}

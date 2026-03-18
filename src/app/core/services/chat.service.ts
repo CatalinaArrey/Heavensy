@@ -23,7 +23,6 @@ export class ChatService {
   // NUEVO MÉTODO PARA ENVIAR 
 enviarMensaje(telefono: string, texto: string, companyId: string = 'LATTICE_001') {
     // Usamos environment.apiUrl directamente para que la URL final sea:
-    // https://heavensy-api-backend.onrender.com/api/LATTICE_001/messages/send
     const url = `${environment.apiUrl}/${companyId}/messages/send`;
     
     const body = {

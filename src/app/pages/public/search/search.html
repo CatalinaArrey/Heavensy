@@ -121,12 +121,15 @@
 
       <div class="card-grid">
         @for (pro of profesionalesPaginados; track pro.id) {
-          <div class="card">
+          
+          <div class="card" [routerLink]="['/p', pro.username]" tabindex="0">
+            
             <div class="card-header" [style.backgroundImage]="'linear-gradient(135deg,' + pro.bgColor + ',' + pro.bgColorAlt + ')'">
               <div class="avatar" [style.background]="'linear-gradient(135deg,' + pro.avatarColor + ',' + pro.avatarColorAlt + ')'">
                 {{ pro.initials }}
               </div>
             </div>
+            
             <div class="card-body">
               <div class="title-row">
                 <h4>{{ pro.nombre }}</h4>
@@ -140,10 +143,11 @@
                   <small>DESDE</small>
                   <strong>{{ pro.precio | currency:'CLP':'symbol-narrow':'1.0-0' }}</strong>
                 </div>
-                <button class="btn-arrow"><i class="fas fa-arrow-right"></i></button>
               </div>
             </div>
+            
           </div>
+          
         }
       </div>
 

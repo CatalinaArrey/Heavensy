@@ -1,0 +1,139 @@
+<div class="public-layout">
+  
+  <header class="public-navbar">
+    <div class="brand-logo"><div class="logo-box"></div> Heavency</div>
+    <div class="nav-links">
+      <a routerLink="/search">Búsqueda de servicios</a>
+    </div>
+  </header>
+
+  <main class="public-container">
+    
+    <div class="back-navigation">
+      <a routerLink="/search" class="btn-back">
+        <i class="fas fa-arrow-left"></i> Volver a resultados
+      </a>
+    </div>
+
+    @if (cargando()) {
+      <div style="text-align: center; padding: 50px; color: #6b7280;">
+        <i class="fas fa-spinner fa-spin fa-2x"></i>
+        <p>Cargando perfil...</p>
+      </div>
+    } 
+    
+    @else if (error()) {
+      <div style="text-align: center; padding: 50px; color: #ef4444;">
+        <i class="fas fa-exclamation-circle fa-2x"></i>
+        <h2>Perfil no encontrado</h2>
+        <p>El profesional que buscas no existe o la URL es incorrecta.</p>
+        <button routerLink="/search" class="btn-primary" style="margin-top: 20px;">Volver al buscador</button>
+      </div>
+    }
+    @else if (perfilData(); as data) {
+      
+      <div class="card hero-card">
+        <div class="hero-content">
+          <img [src]="data.usuario.avatar" alt="Avatar Profesional" class="hero-avatar">
+          <div class="hero-info">
+            <div style="display: flex; align-items: center; gap: 10px;">
+              <h1>{{ data.usuario.nombre }}</h1>
+              @if (data.usuario.verificado) {
+                <span class="badge badge-green"><i class="fas fa-check-circle"></i> Verificado</span>
+              }
+            </div>
+            <p class="profession-title">{{ data.usuario.profesion }}</p>
+            <div class="hero-actions">
+              <button class="btn-primary" [routerLink]="['/reservar']">Contactar / Reservar</button>
+              <button class="btn-outline"><i class="fas fa-share-alt"></i> Compartir</button>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <div class="public-grid">
+        
+        <div class="left-column">
+            <div class="card info-card">
+              <h3>Acerca de mí</h3>
+              <p class="bio-text">{{ data.usuario.acercaDe }}</p>
+              <div class="contact-list">
+                <div class="contact-item"><i class="far fa-envelope"></i> <span>{{ data.usuario.contacto.email }}</span></div>
+                <div class="contact-item"><i class="fas fa-globe"></i> <span class="text-purple">{{ data.usuario.contacto.web }}</span></div>
+              </div>
+            </div>
+
+            <div class="card info-card">
+              <h3>Ubicación</h3>
+              <p class="bio-text" style="margin-bottom: 12px;"><i class="fas fa-map-marker-alt text-muted"></i> {{ data.usuario.contacto.ubicacion }}</p>
+              <div class="map-wrapper">
+                <iframe width="100%" height="180" frameborder="0" scrolling="no" [src]="obtenerUrlMapa(data.usuario.lat, data.usuario.lng)"></iframe>
+              </div>
+            </div>
+
+            <div class="card info-card">
+              <h3><i class="far fa-calendar-check text-purple"></i> Disponibilidad</h3>
+              <div class="availability-list">
+                @for (dia of data.disponibilidad; track dia.dia) {
+                  <div class="day-item" [class.unavailable]="!dia.disponible">
+                    <span class="day-name">{{ dia.dia }}</span>
+                    <span class="day-hours">{{ dia.horas }}</span>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="right-column">
+            
+            <h2 class="section-title">Servicios Destacados</h2>
+            <div class="services-list" style="margin-bottom: 32px;">
+              @for (svc of data.servicios; track svc.titulo) {
+                <div class="card service-item">
+                  <div class="svc-icon" [style.color]="svc.color" [style.background]="svc.color + '1a'"><i [class]="svc.icon"></i></div>
+                  <div class="svc-details">
+                    <h4>{{ svc.titulo }}</h4>
+                    <span class="badge-tag">{{ svc.categoria }}</span>
+                  </div>
+                  <div class="svc-price"><strong>{{ svc.precio | currency:'CLP':'symbol-narrow':'1.0-0' }}</strong></div>
+                  <button class="btn-outline small">Solicitar</button>
+                </div>
+              }
+            </div>
+
+            <div style="display: flex; justify-content: space-between; align-items: flex-end; margin-bottom: 16px;">
+              <h2 class="section-title" style="margin: 0;">Reseñas de Clientes</h2>
+              <div class="reviews-summary">
+                <i class="fas fa-star text-yellow"></i>
+                <strong>{{ data.resenas.promedio }}</strong>
+                <span class="text-muted">({{ data.resenas.total }})</span>
+              </div>
+            </div>
+
+            <div class="reviews-list">
+              @for (resena of data.resenas.comentarios; track resena.autor) {
+                <div class="card review-card">
+                  <div class="review-header">
+                    <div class="review-user">
+                      <div class="avatar-initials">{{ resena.autor.charAt(0) }}</div>
+                      <div class="review-meta">
+                        <strong>{{ resena.autor }}</strong>
+                        <span>{{ resena.fecha }}</span>
+                      </div>
+                    </div>
+                    <div class="review-stars">
+                      @for (star of [1,2,3,4,5]; track star) {
+                        <i class="fa-star text-yellow" [ngClass]="star <= resena.calificacion ? 'fas' : 'far'"></i>
+                      }
+                    </div>
+                  </div>
+                  <p class="review-text">"{{ resena.texto }}"</p>
+                </div>
+              }
+            </div>
+
+          </div>
+      </div>
+    }
+  </main>
+</div>

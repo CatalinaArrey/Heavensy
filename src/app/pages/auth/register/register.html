@@ -7,9 +7,9 @@
   </div>
   
   <div class="nav-center">
-    <div class="step-indicator active"></div>
-    <div class="step-indicator"></div>
-    <div class="step-indicator"></div>
+    <div class="step-indicator" [ngClass]="{'active': currentStep >= 1}"></div>
+    <div class="step-indicator" [ngClass]="{'active': currentStep >= 2}" *ngIf="totalSteps >= 2"></div>
+    <div class="step-indicator" [ngClass]="{'active': currentStep >= 3}" *ngIf="totalSteps >= 3"></div>
   </div>
 
   <div class="nav-actions">
@@ -21,68 +21,168 @@
   
   <main class="form-column">
     <header class="form-header">
-      <span class="step-label">PASO 1 DE 3</span>
-      <h1>Configura tu perfil profesional</h1>
-      <p>Completa los datos necesarios para verificar tu identidad y comenzar a gestionar tus servicios en Chile.</p>
+      <span class="step-label">PASO {{ currentStep }} DE {{ totalSteps }}</span>
+      <h1 [ngSwitch]="currentStep">
+        <span *ngSwitchCase="1">Configura tu perfil profesional</span>
+        <span *ngSwitchCase="2">Media & Personalización</span>
+        <span *ngSwitchCase="3">Datos de tu empresa</span>
+      </h1>
+      <p [ngSwitch]="currentStep">
+        <span *ngSwitchCase="1">Completa los datos necesarios para verificar tu identidad y comenzar a gestionar tus servicios en Chile.</span>
+        <span *ngSwitchCase="2">Configura tu imagen pública y el contenido multimedia para tus clientes.</span>
+        <span *ngSwitchCase="3">Cuéntanos más sobre tu empresa para finalizar el registro.</span>
+      </p>
     </header>
 
-    <form [formGroup]="registerForm" (ngSubmit)="onSubmit()">
-      
-      <section class="form-section" formGroupName="personal">
+    <form [formGroup]="step1Form" (ngSubmit)="onSubmit()" *ngIf="currentStep === 1">
+      <section class="form-section">
         <div class="section-title">
           <fa-icon [icon]="faUserTie" class="icon"></fa-icon>
           <h2>DATOS PERSONALES</h2>
         </div>
 
-        <div class="upload-grid">
+        <div class="entry-mode-toggle">
+          <button type="button" class="toggle-btn" [class.active]="!isManualEntryEnabled" (click)="toggleEntryMode(false)">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="toggle-icon-circle icon-file"><fa-icon [icon]="faFile"></fa-icon></div>
+                <div style="text-align: left;">
+                    <span class="toggle-title">Cargar Cédula</span>
+                    <span class="toggle-subtitle">Validación automática</span>
+                </div>
+            </div>
+          </button>
+          <button type="button" class="toggle-btn" [class.active]="isManualEntryEnabled" (click)="toggleEntryMode(true)">
+            <div style="display: flex; align-items: center; gap: 12px;">
+                <div class="toggle-icon-circle icon-manual"><fa-icon [icon]="faPenToSquare"></fa-icon></div>
+                <div style="text-align: left;">
+                    <span class="toggle-title">Ingreso Manual</span>
+                    <span class="toggle-subtitle">Ingresa tus datos</span>
+                </div>
+            </div>
+             <fa-icon [icon]="faCheckCircle" class="active-check" *ngIf="isManualEntryEnabled"></fa-icon>
+          </button>
+        </div>
+
+        <div class="upload-grid" *ngIf="!isManualEntryEnabled">
           <div class="upload-box">
             <div class="icon-circle"><fa-icon [icon]="faId"></fa-icon></div>
             <span class="upload-label">Cargar Carnet / ID</span>
           </div>
-          <div class="upload-box">
-            <div class="icon-circle"><fa-icon [icon]="faUser"></fa-icon></div>
-            <span class="upload-label">Foto de Perfil</span>
+          <div class="upload-box" (click)="fileInputAuto.click()" [class.has-file]="selectedFileName">
+            <input type="file" hidden #fileInputAuto accept="image/*" (change)="onFileSelected($event)">
+            <ng-container *ngIf="!selectedFileName">
+              <div class="icon-circle"><fa-icon [icon]="faUser"></fa-icon></div>
+              <span class="upload-label">Foto de Perfil</span>
+            </ng-container>
+            <ng-container *ngIf="selectedFileName">
+              <div class="icon-circle success"><fa-icon [icon]="faCheck"></fa-icon></div>
+              <span class="file-selected-text">{{ selectedFileName }}</span>
+              <button type="button" class="btn-remove" (click)="removeImage($event, fileInputAuto)">
+                <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+              </button>
+            </ng-container>
           </div>
         </div>
 
-        <div class="inputs-grid">
+        <div class="manual-side-by-side" *ngIf="isManualEntryEnabled">
+            <div class="manual-left-col">
+                <div class="form-group full-width" style="margin-bottom: 20px;">
+                  <label>Nombre Completo <span class="asterisk" *ngIf="step1Form.get('fullName')?.invalid">*</span></label>
+                  <input type="text" formControlName="fullName" placeholder="Margarita Gonzalez">
+                </div>
+                <div class="inputs-grid">
+                    <div class="form-group">
+                      <label>RUT <span class="asterisk" *ngIf="step1Form.get('rut')?.invalid">*</span></label>
+                      <input type="text" formControlName="rut" placeholder="12.345.678-9" maxlength="12">
+                    </div>
+                    <div class="form-group">
+                      <label>Fecha Nacimiento <span class="asterisk" *ngIf="step1Form.get('birthDate')?.invalid">*</span></label>
+                      <input type="date" formControlName="birthDate">
+                    </div>
+                </div>
+            </div>
+
+            <div class="manual-right-col">
+                <div class="upload-box side-photo-box" (click)="fileInputManual.click()" [class.has-file]="selectedFileName">
+                    <input type="file" hidden #fileInputManual accept="image/*" (change)="onFileSelected($event)">
+                    <ng-container *ngIf="!selectedFileName">
+                        <div class="icon-circle"><fa-icon [icon]="faUser"></fa-icon></div>
+                        <span class="upload-label">Foto de Perfil</span>
+                    </ng-container>
+                    <ng-container *ngIf="selectedFileName">
+                        <div class="icon-circle success"><fa-icon [icon]="faCheck"></fa-icon></div>
+                        <span class="file-selected-text">{{ selectedFileName }}</span>
+                        <button type="button" class="btn-remove" (click)="removeImage($event, fileInputManual)">
+                          <fa-icon [icon]="faTrash"></fa-icon> Eliminar
+                        </button>
+                    </ng-container>
+                </div>
+            </div>
+        </div>
+
+        <div class="inputs-grid" style="margin-top: 20px;">
           <div class="form-group">
-            <label>Correo Electrónico</label>
+            <label>Correo Electrónico <span class="asterisk" *ngIf="step1Form.get('email')?.invalid">*</span></label>
             <input type="email" formControlName="email" placeholder="ejemplo@correo.cl">
           </div>
           <div class="form-group">
-            <label>Teléfono Móvil</label>
+            <label>Teléfono Móvil <span class="asterisk" *ngIf="step1Form.get('phone')?.invalid">*</span></label>
             <div class="phone-input">
               <span class="prefix">+56</span>
-              <input type="tel" formControlName="phone" placeholder="9 1234 5678">
+              <input type="tel" formControlName="phone" placeholder="9 1234 5678" maxlength="9">
             </div>
           </div>
-          <div class="form-group full-width">
-            <label>Contraseña de acceso</label>
-            <input type="password" formControlName="password" placeholder="••••••••">
+
+          <div class="form-group">
+            <label>Contraseña de acceso <span class="asterisk" *ngIf="step1Form.get('password')?.invalid">*</span></label>
+            <div class="input-with-icon">
+              <input [type]="showPassword ? 'text' : 'password'" formControlName="password" placeholder="•••••••••••••">
+              <button type="button" class="btn-eye" (click)="showPassword = !showPassword">
+                <fa-icon [icon]="showPassword ? faEyeSlash : faEye"></fa-icon>
+              </button>
+            </div>
+          </div>
+          
+          <div class="form-group">
+            <label>Confirmar contraseña <span class="asterisk" *ngIf="step1Form.get('confirmPassword')?.invalid">*</span></label>
+            <div class="input-with-icon">
+              <input [type]="showConfirmPassword ? 'text' : 'password'" formControlName="confirmPassword" placeholder="•••••••••••••">
+              <button type="button" class="btn-eye" (click)="showConfirmPassword = !showConfirmPassword">
+                <fa-icon [icon]="showConfirmPassword ? faEyeSlash : faEye"></fa-icon>
+              </button>
+            </div>
+          </div>
+
+          <div class="form-group full-width password-meta" *ngIf="step1Form.get('password')?.value">
+            <div class="strength-bar-container" *ngIf="strengthScore < 4">
+              <div class="strength-bar" [ngClass]="'strength-' + strengthScore" [style.width.%]="(strengthScore / 4) * 100"></div>
+            </div>
+            <ul class="req-list">
+              <li [class.met]="reqs.length"><fa-icon [icon]="faCheckCircle"></fa-icon> Mínimo 8 caracteres</li>
+              <li [class.met]="reqs.upper"><fa-icon [icon]="faCheckCircle"></fa-icon> Una mayúscula</li>
+              <li [class.met]="reqs.lower"><fa-icon [icon]="faCheckCircle"></fa-icon> Una minúscula</li>
+              <li [class.met]="reqs.numberSpecial"><fa-icon [icon]="faCheckCircle"></fa-icon> Número o símbolo</li>
+            </ul>
           </div>
         </div>
       </section>
 
-      <section class="form-section" formGroupName="banking">
+      <section class="form-section">
         <div class="section-title">
           <fa-icon [icon]="faWallet" class="icon"></fa-icon>
           <h2>COMISIONES Y PAGOS</h2>
         </div>
-
         <div class="inputs-grid">
           <div class="form-group">
-            <label>Banco</label>
+            <label>Banco <span class="asterisk" *ngIf="step1Form.get('bank')?.invalid">*</span></label>
             <div class="select-wrapper">
               <select formControlName="bank">
-                <option value="banco_estado">Banco Estado</option>
-                <option value="santander">Santander</option>
-                <option value="chile">Banco de Chile</option>
+                <option *ngFor="let banco of bancos" [value]="banco.codigo">{{ banco.nombre }}</option>
               </select>
             </div>
           </div>
           <div class="form-group">
-            <label>Tipo de Cuenta</label>
+            <label>Tipo de Cuenta <span class="asterisk" *ngIf="step1Form.get('accountType')?.invalid">*</span></label>
             <div class="select-wrapper">
               <select formControlName="accountType">
                 <option value="rut">Cuenta RUT / Vista</option>
@@ -91,8 +191,8 @@
             </div>
           </div>
           <div class="form-group full-width">
-            <label>Número de Cuenta</label>
-            <input type="text" formControlName="accountNumber" placeholder="000-00000-0">
+            <label>Número de Cuenta <span class="asterisk" *ngIf="step1Form.get('accountNumber')?.invalid">*</span></label>
+            <input type="text" formControlName="accountNumber" placeholder="000-00000-0" maxlength="15">
           </div>
         </div>
       </section>
@@ -102,8 +202,8 @@
           <fa-icon [icon]="faTicket" class="icon"></fa-icon>
           <h2>CÓDIGO DE INVITADO</h2>
         </div>
-
         <div class="code-box">
+          <label style="display: block; margin-bottom: 8px; font-size: 13px; font-weight: 600; color: #334155; text-align: left;">Código</label>
           <input type="text" formControlName="referral" placeholder="ESCRIBE TU CÓDIGO AQUÍ">
           <small>Usa un código para obtener beneficios exclusivos en tu suscripción.</small>
         </div>
@@ -111,12 +211,133 @@
 
       <div class="form-footer">
         <button type="submit" class="btn-submit">
-          Registrarse
+          Continuar registro
+          <fa-icon [icon]="faArrowRight"></fa-icon>
         </button>
         <p class="terms">Al continuar aceptas nuestros términos y condiciones de servicio.</p>
       </div>
-
     </form>
+
+    <form [formGroup]="step2Form" (ngSubmit)="onSubmit()" *ngIf="currentStep === 2">
+      <div class="step2-grid">
+        <div class="column">
+          <section class="white-card profile-card">
+            <div class="section-title" style="margin-bottom: 24px;">
+              <fa-icon [icon]="faWand" class="icon"></fa-icon>
+              <h2>PERSONALIZANDO TU IMAGEN</h2>
+            </div>
+
+            <div class="profile-upload-zone" (click)="fileInputStep2.click()">
+              <div class="avatar-wrapper">
+                <img [src]="previewData.img" alt="Profile">
+                <div class="camera-icon"><fa-icon [icon]="faCamera"></fa-icon></div>
+              </div>
+              <input type="file" hidden #fileInputStep2 accept="image/*" (change)="onFileSelected($event)">
+              <p>Foto de Perfil</p>
+            </div>
+            
+            <div class="form-group">
+              <label>Slogan o frase identitaria</label>
+              <input type="text" formControlName="slogan" placeholder="Tu frase te distingue de la competencia">
+            </div>
+            
+            <div class="form-group" style="margin-top: 16px;">
+              <label>Presentación de hasta 160 caracteres</label>
+              <div class="textarea-container">
+                <textarea formControlName="presentation" placeholder="Cuéntanos un poco sobre ti..." maxlength="160"></textarea>
+                <span class="counter">{{ charCount }}/{{ maxChars }}</span>
+              </div>
+            </div>
+          </section>
+        </div>
+
+        <div class="column">
+          <section class="white-card multimedia-card">
+            <div class="section-title" style="margin-bottom: 24px; justify-content: space-between;">
+              <div style="display: flex; align-items: center; gap: 10px;">
+                <fa-icon [icon]="faVideo" class="icon"></fa-icon>
+                <h2>CONTENIDO MULTIMEDIA</h2>
+              </div>
+              <span class="badge-limit">Max 100MB</span>
+            </div>
+
+            <div class="video-dropzone" (click)="vidInput.click()">
+              <input type="file" hidden #vidInput accept="video/*" (change)="onMediaSelected($event, 0)">
+              <fa-icon [icon]="faArrowRight" class="play-btn"></fa-icon>
+              <span>VIDEO DE BÚSQUEDA</span>
+              <small>Máx 1 min</small>
+            </div>
+
+            <div class="media-grid-small">
+              <div class="media-slot" *ngFor="let i of [1,2,3,4]" (click)="mediaInput.click()">
+                 <input type="file" hidden #mediaInput accept="image/*" (change)="onMediaSelected($event, i)">
+                <fa-icon [icon]="faFile"></fa-icon>
+                <span>Item {{ i }}</span>
+              </div>
+            </div>
+
+            <p class="helper-text" style="text-align: center; font-size: 11px; color: #94a3b8; margin-top: 16px;">
+              Puedes cargar hasta 4 fotos o videos adicionales para tu perfil (Máx 15min c/u).
+            </p>
+          </section>
+        </div>
+      </div>
+
+      <div class="form-footer">
+        <div class="btn-group" style="display: flex; gap: 16px; align-items: center;">
+          <button type="button" class="btn-secondary" style="flex: 1;" (click)="previousStep()">Atrás</button>
+          <button type="submit" class="btn-submit" style="flex: 2;">
+            Siguiente Paso <fa-icon [icon]="faArrowRight"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+
+    <form [formGroup]="step3Form" (ngSubmit)="onSubmit()" *ngIf="currentStep === 3">
+      <section class="form-section">
+        <div class="section-title">
+          <fa-icon [icon]="faWand" class="icon"></fa-icon>
+          <h2>DATOS DE TU EMPRESA</h2>
+        </div>
+
+        <div class="inputs-grid">
+          <div class="form-group full-width">
+            <label>Nombre de la Empresa o Consulta <span class="asterisk" *ngIf="step3Form.get('company')?.invalid">*</span></label>
+            <input type="text" formControlName="company" placeholder="Ej: Clínica Podológica Heavency">
+          </div>
+          <div class="form-group">
+            <label>Rol en la empresa</label>
+            <input type="text" formControlName="role" placeholder="Ej: Dueño, Especialista...">
+          </div>
+          <div class="form-group">
+            <label>Número de empleados <span class="asterisk" *ngIf="step3Form.get('employees')?.invalid">*</span></label>
+            <div class="select-wrapper">
+              <select formControlName="employees">
+                <option value="">Selecciona un rango</option>
+                <option value="1">Solo yo (Independiente)</option>
+                <option value="2-5">2 a 5 empleados</option>
+                <option value="6-10">6 a 10 empleados</option>
+                <option value="11+">Más de 10 empleados</option>
+              </select>
+            </div>
+          </div>
+          <div class="form-group full-width">
+            <label>Información Adicional (Opcional)</label>
+            <textarea formControlName="additionalInfo" placeholder="¿Hay algo más que debamos saber sobre tus servicios?" style="height: 100px; border: 1px solid #e2e8f0; border-radius: 8px; padding: 16px; font-family: inherit; resize: none; outline: none; transition: border-color 0.2s;" onfocus="this.style.borderColor='#7c3aed'" onblur="this.style.borderColor='#e2e8f0'"></textarea>
+          </div>
+        </div>
+      </section>
+
+      <div class="form-footer">
+        <div style="display: flex; gap: 16px;">
+          <button type="button" class="btn-secondary" style="flex: 1;" (click)="previousStep()">Atrás</button>
+          <button type="submit" class="btn-submit" style="flex: 2;">
+            Finalizar y Enviar Datos <fa-icon [icon]="faCheck"></fa-icon>
+          </button>
+        </div>
+      </div>
+    </form>
+
   </main>
 
   <aside class="preview-column">
@@ -139,7 +360,7 @@
               <h4>{{ previewData.name }}</h4>
               <span class="role">{{ previewData.role }}</span>
               <div class="verified-badge">
-                <fa-icon [icon]="faCheck" class="check"></fa-icon>
+                <fa-icon [icon]="faCheckCircle" class="check"></fa-icon>
                 <span>VERIFIED SPECIALIST</span>
               </div>
             </div>
@@ -174,12 +395,3 @@
     </div>
   </aside>
 </div>
-
-<footer class="site-footer">
-  <span>© 2024 Heavency Chile • Gestión Eficiente para Especialistas</span>
-  <div class="links">
-    <a href="#">Privacidad</a>
-    <a href="#">Soporte</a>
-    <a href="#">Condiciones</a>
-  </div>
-</footer>

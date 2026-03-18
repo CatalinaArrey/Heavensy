@@ -1,5 +1,7 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
+import { Router } from '@angular/router';
+import { RegistrationService } from '../../../core/services'; 
 
 @Component({
   selector: 'app-plans',
@@ -10,6 +12,33 @@ import { CommonModule } from '@angular/common';
 })
 export class PlanesComponent {
   
+  constructor(
+    private router: Router, 
+    private registrationService: RegistrationService
+  ) {}
+
+  selectPlan(plan: any) {
+    // Cambia aquí los nombres permitidos según tu PlanType real
+    let planId: 'gratis' | 'automate-pro' | 'secretar-ia' | 'enterprise' = 'gratis'; 
+    
+    switch(plan.title) {
+      case 'Gratis': 
+        planId = 'gratis'; 
+        break;
+      case 'Automate Pro': 
+        planId = 'automate-pro'; 
+        break;
+      case 'Secretar-IA Premium': 
+        planId = 'secretar-ia'; 
+        break;
+      case 'Heavensy Enterprise': 
+        planId = 'enterprise'; 
+        break;
+    }
+
+    this.registrationService.setPlan(planId);
+    this.router.navigate(['/auth/register']);
+  }
   plans = [
     {
       title: 'Gratis',
@@ -26,14 +55,14 @@ export class PlanesComponent {
       ],
       buttonText: 'Comenzar',
       buttonIcon: 'fa-arrow-right',
-      buttonStyle: 'outline' // 'outline' | 'solid'
+      buttonStyle: 'outline' 
     },
     {
       title: 'Automate Pro',
       description: 'Automatiza con IA tu negocio y vende mucho más.',
       price: '$70.000',
       period: '/mes',
-      isPopular: true, // Activa el estilo destacado
+      isPopular: true,
       featuresTitle: 'Todo en plan Gratis, más:',
       features: [
         'Embudo de chat automatizado',
@@ -57,8 +86,8 @@ export class PlanesComponent {
         'Comandos por voz y texto',
         'Ahorro del 90% de tu tiempo'
       ],
-      buttonText: 'Agendar reunión',
-      buttonIcon: 'fa-calendar',
+      buttonText: 'Seleccionar plan', // Cambié el texto para que tenga sentido con el registro
+      buttonIcon: 'fa-arrow-right',
       buttonStyle: 'outline'
     },
     {
@@ -74,8 +103,8 @@ export class PlanesComponent {
         'Organización inteligente',
         'Soporte prioritario 24/7'
       ],
-      buttonText: 'Agendar reunión',
-      buttonIcon: 'fa-calendar',
+      buttonText: 'Seleccionar plan', // Cambié el texto para que tenga sentido con el registro
+      buttonIcon: 'fa-arrow-right',
       buttonStyle: 'outline'
     }
   ];

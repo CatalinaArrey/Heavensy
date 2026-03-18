@@ -47,7 +47,7 @@
       </div>
 
       <div class="card-footer">
-        <button [ngClass]="plan.buttonStyle === 'solid' ? 'btn-solid' : 'btn-outline'">
+        <button [ngClass]="plan.buttonStyle === 'solid' ? 'btn-solid' : 'btn-outline'" (click)="selectPlan(plan)">
           {{ plan.buttonText }}
           <i class="fa-solid" [ngClass]="plan.buttonIcon"></i>
         </button>
