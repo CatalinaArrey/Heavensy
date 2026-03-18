@@ -1,18 +1,19 @@
 <div class="dashboard-layout">
-  
   <aside class="sidebar">
-    
+    <div class="brand-logo" style="margin-bottom: 40px; display:flex; align-items:center; gap:10px; font-weight:bold; font-size:20px; color:#1e1b4b;">
+      <i class="fas fa-circle-notch" style="color: #8b5cf6;"></i> Lattice
+    </div>
     <nav class="sidebar-menu">
-      <a href="#" class="menu-item active">
+      <a href="javascript:void(0)" class="menu-item" [class.active]="currentView() === 'perfil' || currentView() === 'editar-perfil'" (click)="cambiarVista('perfil')">
         <i class="fas fa-user"></i> <span>Mi Perfil</span>
       </a>
-      <a href="#" class="menu-item">
+      <a href="javascript:void(0)" class="menu-item" [class.active]="currentView() === 'dashboard'" (click)="cambiarVista('dashboard')">
         <i class="fas fa-th-large"></i> <span>Panel de Control</span>
       </a>
-      <a href="#" class="menu-item">
+      <a href="javascript:void(0)" class="menu-item" [class.active]="currentView() === 'servicios'" (click)="cambiarVista('servicios')">
         <i class="fas fa-briefcase"></i> <span>Mis Servicios</span>
       </a>
-      <a href="#" class="menu-item">
+      <a href="javascript:void(0)" class="menu-item" [class.active]="currentView() === 'facturacion'" (click)="cambiarVista('facturacion')">
         <i class="fas fa-file-invoice-dollar"></i> <span>Facturación</span>
       </a>
     </nav>
@@ -20,120 +21,563 @@
 
   <main class="main-content">
     
-    <div class="profile-header">
-      <div class="header-text">
-        <h1>Mi Perfil</h1>
-        <p>Resumen de tu información personal.</p>
-      </div>
-      <button class="btn-edit">
-        <i class="fas fa-pencil-alt"></i> Editar
-      </button>
-    </div>
-
-    <div class="card main-banner">
-      <div class="banner-content">
-        <img [src]="usuario.avatar" alt="Avatar">
-        <div class="user-main-info">
-          <h2>{{ usuario.nombre }}</h2>
-          <span class="rut-text"><i class="far fa-id-card"></i> RUT: {{ usuario.rut }}</span>
-          <div class="badges">
-            <span class="badge badge-blue">{{ usuario.profesion }}</span>
-            <span class="badge badge-purple">{{ usuario.plan }}</span>
-            <span class="badge badge-green">Verificado</span>
-          </div>
-        </div>
-      </div>
-    </div>
-
-    <div class="profile-grid">
+    @switch (currentView()) {
       
-      <div class="card info-card">
-        <h3><i class="far fa-user"></i> Información Personal</h3>
-        <div class="info-list">
-          <div class="info-item">
-            <span class="label">Nombre</span>
-            <span class="val">{{ usuario.detalles.nombreCompleto }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">Email</span>
-            <span class="val">{{ usuario.detalles.email }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">Teléfono</span>
-            <span class="val">{{ usuario.detalles.telefono }}</span>
-          </div>
-          <div class="info-item">
-            <span class="label">Nacimiento</span>
-            <span class="val">{{ usuario.detalles.fechaNac }}</span>
-          </div>
-        </div>
-      </div>
-
-      <div class="card info-card">
-        <h3><i class="fas fa-briefcase"></i> Información Profesional</h3>
-        <div class="prof-content">
-          <div>
-            <label>Título / Rubro</label>
-            <p class="strong-text">{{ usuario.profesional.titulo }}</p>
-          </div>
-          <div>
-            <label>Descripción</label>
-            <p>{{ usuario.profesional.descripcion }}</p>
-          </div>
-          <div class="info-split">
-            <div><label>Categoría</label><p>{{ usuario.profesional.categoria }}</p></div>
-            <div style="text-align: right;"><label>Web</label><p style="color:#8b5cf6; font-weight:600;">{{ usuario.profesional.web }}</p></div>
-          </div>
-        </div>
-      </div>
-
-      <div class="card info-card">
-        <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
-        <div class="location-box">
-          <div class="loc-header">
-            <div class="loc-icon"><i class="fas fa-building"></i></div>
-            <div class="loc-text">
-              <div style="font-weight: 700; font-size: 14px;">Av. Providencia 1234, Of. 505</div>
-              <div style="color: #6b7280; font-size: 13px;">Providencia, Santiago</div>
+      @case ('editar-perfil') {
+        @if (editPerfilData(); as editData) {
+          <div class="profile-header">
+            <div class="header-text">
+              <h1>Editar Perfil</h1>
+              <p>Actualiza tu información pública y privada.</p>
+            </div>
+            <div style="display:flex; gap:12px;">
+              <button class="btn-outline" (click)="cancelarEdicion()">Cancelar</button>
+              <button class="btn-primary" (click)="guardarCambios()"><i class="fas fa-save"></i> Guardar Cambios</button>
             </div>
           </div>
-          <div class="map-placeholder">Vista Mapa</div>
-        </div>
-      </div>
 
-      <div class="card sub-card">
-        <div class="sub-header" style="display:flex; justify-content:space-between; align-items:center;">
-          <h3><i class="fas fa-star"></i> Suscripción</h3>
-          <span class="sub-badge">ACTIVA</span>
+          <div class="card form-card">
+            
+            <div class="form-section-title">Información Principal</div>
+            <div class="form-grid">
+              
+              <div class="form-group avatar-row" style="grid-column: 1 / -1; display: flex; flex-direction: row; align-items: center; gap: 24px;">
+                <div class="avatar-upload-container" style="display: flex; flex-direction: column; align-items: center;">
+                  <img [src]="editData.avatar || 'assets/default-avatar.png'" alt="Avatar Preview" class="avatar-preview" style="width: 70px; height: 70px; border-radius: 50%; object-fit: cover; border: 2px solid #e5e7eb;">
+                  <label style="font-size: 11px; color: #8b5cf6; margin-top: 8px; cursor: pointer; font-weight: 600;">
+                    Cambiar foto
+                    <input type="file" style="display: none;" accept="image/*">
+                  </label>
+                </div>
+                <div style="flex: 1; display: flex; flex-direction: column; gap: 8px;">
+                  <label>Nombre y Apellido (Real)</label>
+                  <input type="text" class="form-control" [(ngModel)]="editData.detalles.nombreCompleto">
+                </div>
+              </div>
+
+              <div class="form-group">
+                <label>Nombre a mostrar (Corto)</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.nombre">
+              </div>
+              <div class="form-group">
+                <label>Profesión</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.profesion">
+              </div>
+            </div>
+
+            <div class="form-section-title" style="margin-top: 24px;">Detalles Personales</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>RUT</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.rut">
+              </div>
+              <div class="form-group">
+                <label>Email</label>
+                <input type="email" class="form-control" [(ngModel)]="editData.detalles.email">
+              </div>
+              <div class="form-group">
+                <label>Teléfono</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.detalles.telefono">
+              </div>
+              <div class="form-group">
+                <label>Fecha de Nacimiento</label>
+                <input type="date" class="form-control" [(ngModel)]="editData.detalles.fechaNac">
+              </div>
+            </div>
+
+            <div class="form-section-title" style="margin-top: 24px;">Información Profesional</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Título / Rubro Oficial</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.profesional.titulo">
+              </div>
+              <div class="form-group">
+                <label>Categoría</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.profesional.categoria">
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Descripción / Sobre ti</label>
+                <textarea class="form-control" [(ngModel)]="editData.profesional.descripcion"></textarea>
+              </div>
+              <div class="form-group" style="grid-column: 1 / -1;">
+                <label>Sitio Web Profesional</label>
+                <input type="url" class="form-control" [(ngModel)]="editData.profesional.web">
+              </div>
+            </div>
+
+            <div class="form-section-title" style="margin-top: 24px;">Ubicación</div>
+            <div class="form-grid">
+              <div class="form-group">
+                <label>Dirección</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.ubicacion.direccion">
+              </div>
+              <div class="form-group">
+                <label>Ciudad</label>
+                <input type="text" class="form-control" [(ngModel)]="editData.ubicacion.ciudad">
+              </div>
+              <div class="form-group">
+                <label>Latitud (Mapa)</label>
+                <input type="number" step="any" class="form-control" [(ngModel)]="editData.ubicacion.lat">
+              </div>
+              <div class="form-group">
+                <label>Longitud (Mapa)</label>
+                <input type="number" step="any" class="form-control" [(ngModel)]="editData.ubicacion.lng">
+              </div>
+            </div>
+
+          </div>
+        }
+      }
+
+      @case ('dashboard') {
+        @if (dashboardData(); as db) {
+          <div class="profile-header">
+            <div class="header-text">
+              <h1>Hola, {{ perfilData()?.nombre?.split(' ')[0] || 'Usuario' }}</h1>
+              <p>Aquí está el resumen de tu actividad en Lattice.</p>
+            </div>
+            <button class="btn-outline"><i class="fas fa-sync-alt"></i></button>
+          </div>
+
+          <div class="stats-grid">
+            <div class="card stat-card">
+              <div class="stat-icon bg-green"><i class="fas fa-money-bill-wave"></i></div>
+              <label>Ventas del Mes</label>
+              <h2>{{ db.resumen.ventasMes | currency:'CLP':'symbol-narrow':'1.0-0' }}</h2>
+              <span class="trend pos"><i class="fas fa-arrow-up"></i> {{ db.resumen.ventasCrecimiento }} vs mes anterior</span>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon bg-blue"><i class="fas fa-user-plus"></i></div>
+              <label>Nuevos Clientes</label>
+              <h2>{{ db.resumen.nuevosClientes }}</h2>
+              <span class="trend pos"><i class="fas fa-arrow-up"></i> {{ db.resumen.clientesCrecimiento }} esta semana</span>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon bg-purple"><i class="fas fa-briefcase"></i></div>
+              <label>Servicios Activos</label>
+              <h2>{{ db.resumen.serviciosActivos }}</h2>
+              <span class="trend text-muted">3 finalizan esta semana</span>
+            </div>
+            <div class="card stat-card">
+              <div class="stat-icon bg-yellow"><i class="fas fa-star"></i></div>
+              <label>Calificación</label>
+              <h2>{{ db.resumen.calificacion }}</h2>
+              <span class="trend text-muted">Basado en {{ db.resumen.resenas }} reseñas</span>
+            </div>
+          </div>
+
+          <div class="middle-grid">
+            <div class="card chart-card">
+              <div class="card-header">
+                <h3><i class="fas fa-chart-line"></i> Rendimiento de Ventas</h3>
+                <select class="custom-select"><option>Últimos 6 meses</option></select>
+              </div>
+              <div class="chart-placeholder">
+                <div class="fake-chart-line"></div>
+              </div>
+            </div>
+            <div class="card notifications-card">
+              <div class="card-header">
+                <h3><i class="fas fa-bell"></i> Notificaciones</h3>
+                <a href="#" class="link-btn">Ver todas</a>
+              </div>
+              <div class="noti-list">
+                @for (noti of db.notificaciones; track noti.titulo) {
+                  <div class="noti-item">
+                    <div class="noti-dot" [ngClass]="'dot-' + noti.tipo"></div>
+                    <div class="noti-content">
+                      <h4>{{ noti.titulo }}</h4>
+                      <p>{{ noti.desc }}</p>
+                      <span>{{ noti.tiempo }}</span>
+                    </div>
+                  </div>
+                }
+              </div>
+            </div>
+          </div>
+
+          <div class="card table-card">
+            <div class="card-header">
+              <h3><i class="far fa-calendar-alt"></i> Próximos Trabajos & Citas</h3>
+              <div style="display:flex; gap:10px;">
+                <button class="btn-outline">Calendario</button>
+                <button class="btn-primary">+ Nueva Cita</button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>CLIENTE / SERVICIO</th>
+                  <th>FECHA & HORA</th>
+                  <th>UBICACIÓN</th>
+                  <th>ESTADO</th>
+                  <th>ACCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (trabajo of db.proximosTrabajos; track trabajo.cliente) {
+                  <tr>
+                    <td>
+                      <div class="client-cell">
+                        <div class="avatar-initials">{{ trabajo.iniciales }}</div>
+                        <div>
+                          <strong>{{ trabajo.cliente }}</strong>
+                          <span class="sub-text">{{ trabajo.servicio }}</span>
+                        </div>
+                      </div>
+                    </td>
+                    <td>
+                      <strong>{{ trabajo.fecha }}</strong>
+                      <span class="sub-text">{{ trabajo.hora }}</span>
+                    </td>
+                    <td><i class="fas fa-video text-muted"></i> {{ trabajo.ubicacion }}</td>
+                    <td><span class="status-badge" [ngClass]="trabajo.estado.toLowerCase().replace(' ', '-')">{{ trabajo.estado }}</span></td>
+                    <td><button class="icon-btn"><i class="fas fa-ellipsis-v"></i></button></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+
+      @case ('servicios') {
+        <div class="profile-header">
+          <div class="header-text">
+            <h1>Gestión de Servicios</h1>
+            <p>Administra el catálogo de servicios que ofreces a tus clientes.</p>
+          </div>
+          <div style="display:flex; gap:15px; align-items:center;">
+            <input type="text" class="search-input" placeholder="Buscar servicio...">
+            <button class="btn-primary">+ Agregar Servicio</button>
+          </div>
         </div>
-        <div class="sub-body">
-          <label>Plan Actual</label>
-          <h2 class="plan-name">Heavenly Pro</h2>
-          <div class="sub-footer">
-            <div><label>Renovación</label><strong>14 Dic 2024</strong></div>
-            <div style="text-align: right;"><label>Monto</label><strong>$15.990 CLP</strong></div>
+
+        <div class="services-grid">
+          @for (svc of serviciosData(); track svc.titulo) {
+            <div class="card service-card">
+              <div class="svc-header">
+                <div class="svc-icon" [style.color]="svc.color" [style.background]="svc.color + '1a'">
+                  <i [class]="svc.icon"></i>
+                </div>
+                <button class="icon-btn"><i class="fas fa-ellipsis-v"></i></button>
+              </div>
+              <div class="svc-body">
+                <h3>{{ svc.titulo }}</h3>
+                <span class="badge-tag">{{ svc.categoria }}</span>
+                <h2>{{ svc.precio | currency:'CLP':'symbol-narrow':'1.0-0' }} <span class="clp">CLP</span></h2>
+              </div>
+              <div class="svc-footer">
+                <span class="text-muted">Estado</span>
+                <div class="toggle-wrapper" (click)="toggleServicio(svc)">
+                  <div class="toggle-switch" [class.active]="svc.activo"></div>
+                  <span [style.color]="svc.activo ? '#22c55e' : '#9ca3af'">{{ svc.activo ? 'Activo' : 'Inactivo' }}</span>
+                </div>
+              </div>
+            </div>
+          }
+          <div class="card service-card new-service">
+            <div class="plus-icon">+</div>
+            <span>Crear nuevo servicio</span>
+          </div>
+        </div>
+      }
+
+      @case ('facturacion') {
+        @if (facturacionData(); as fdb) {
+          <div class="profile-header">
+            <div class="header-text">
+              <h1>Facturación</h1>
+              <p>Gestiona tus documentos tributarios y revisa tus ingresos.</p>
+            </div>
+            <button class="btn-primary">+ Nueva Factura</button>
+          </div>
+
+          <div class="stats-grid billing-stats">
+            <div class="card stat-card">
+              <div style="display:flex; justify-content:space-between; width: 100%;">
+                <div class="stat-icon bg-green"><i class="fas fa-money-bill-wave"></i></div>
+                <span class="trend pos">{{ fdb.resumen.crecimientoGanancias }} este mes</span>
+              </div>
+              <label>Ganancias Totales (2024)</label>
+              <h2>{{ fdb.resumen.gananciasTotales | currency:'CLP':'symbol-narrow':'1.0-0' }}</h2>
+              <span class="trend text-muted">Actualizado hace 2 horas</span>
+            </div>
+            
+            <div class="card stat-card">
+              <div style="display:flex; justify-content:space-between; width: 100%;">
+                <div class="stat-icon bg-yellow"><i class="fas fa-file-invoice-dollar"></i></div>
+                <span class="badge-tag bg-yellow">{{ fdb.resumen.cantidadPendientes }} Facturas</span>
+              </div>
+              <label>Pagos Pendientes</label>
+              <h2>{{ fdb.resumen.pagosPendientes | currency:'CLP':'symbol-narrow':'1.0-0' }}</h2>
+              <a href="#" class="link-btn" style="margin-top:auto;">Ver detalles →</a>
+            </div>
+
+            <div class="card info-card">
+              <div class="card-header border-bottom">
+                <h3 style="font-size: 13px; text-transform: uppercase;">DATOS DE FACTURACIÓN</h3>
+                <button class="icon-btn text-purple"><i class="fas fa-pencil-alt"></i></button>
+              </div>
+              <div class="prof-content" style="padding-top:15px;">
+                <div>
+                  <label>Razón Social</label>
+                  <p class="strong-text">{{ fdb.datosFacturacion.razonSocial }}</p>
+                </div>
+                <div class="info-split">
+                  <div><label>RUT</label><p>{{ fdb.datosFacturacion.rut }}</p></div>
+                  <div><label>Giro</label><p>{{ fdb.datosFacturacion.giro }}</p></div>
+                </div>
+                <div>
+                  <label>Dirección</label>
+                  <p>{{ fdb.datosFacturacion.direccion }}</p>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="card table-card" style="margin-top: 24px;">
+             <div class="card-header">
+              <h3><i class="fas fa-history"></i> Historial de Facturas/Boletas</h3>
+              <div style="display:flex; gap:10px;">
+                <input type="text" class="search-input" placeholder="Buscar folio o cliente...">
+                <button class="btn-outline"><i class="fas fa-filter"></i></button>
+              </div>
+            </div>
+            <table class="data-table">
+              <thead>
+                <tr>
+                  <th>FECHA</th>
+                  <th>ID / FOLIO</th>
+                  <th>CLIENTE</th>
+                  <th>MONTO (CLP)</th>
+                  <th>ESTADO</th>
+                  <th>ACCIÓN</th>
+                </tr>
+              </thead>
+              <tbody>
+                @for (item of fdb.historial; track item.folio) {
+                  <tr>
+                    <td class="text-muted">{{ item.fecha }}</td>
+                    <td><strong>{{ item.folio }}</strong></td>
+                    <td>
+                       <div class="client-cell">
+                        <div class="avatar-initials small" [ngClass]="item.estado.toLowerCase()">{{ item.cliente.charAt(0) }}</div>
+                        <span>{{ item.cliente }}</span>
+                      </div>
+                    </td>
+                    <td><strong>{{ item.monto | currency:'CLP':'symbol-narrow':'1.0-0' }}</strong></td>
+                    <td><span class="status-badge" [ngClass]="item.estado.toLowerCase()">{{ item.estado }}</span></td>
+                    <td><button class="icon-btn text-muted"><i class="fas fa-file-pdf"></i></button></td>
+                  </tr>
+                }
+              </tbody>
+            </table>
+          </div>
+        }
+      }
+
+      @case ('perfil') {
+        @if (perfilData(); as usuario) {
+          <div class="profile-header">
+            <div class="header-text">
+              <h1>Mi Perfil</h1>
+              <p>Resumen de tu información personal.</p>
+            </div>
+            <button class="btn-edit" (click)="abrirEdicion()">
+              <i class="fas fa-pencil-alt"></i> Editar
+            </button>
+          </div>
+
+          <div class="card main-banner">
+            <div class="banner-content">
+              <img [src]="usuario.avatar" alt="Avatar">
+              <div class="user-main-info">
+                <h2>{{ usuario.nombre }}</h2>
+                <span class="rut-text"><i class="far fa-id-card"></i> RUT: {{ usuario.rut }}</span>
+                <div class="badges">
+                  <span class="badge badge-blue">{{ usuario.profesion }}</span>
+                  <span class="badge badge-purple">{{ usuario.plan }}</span>
+                  <span class="badge badge-green">Verificado</span>
+                </div>
+              </div>
+            </div>
+          </div>
+
+          <div class="profile-grid">
+            
+            <div class="card info-card">
+              <h3><i class="far fa-user"></i> Información Personal</h3>
+              <div class="info-list">
+                <div class="info-item">
+                  <span class="label">Nombre</span>
+                  <span class="val">{{ usuario.detalles.nombreCompleto }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Email</span>
+                  <span class="val">{{ usuario.detalles.email }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Teléfono</span>
+                  <span class="val">{{ usuario.detalles.telefono }}</span>
+                </div>
+                <div class="info-item">
+                  <span class="label">Nacimiento</span>
+                  <span class="val">{{ usuario.detalles.fechaNac }}</span>
+                </div>
+              </div>
+            </div>
+
+            <div class="card info-card">
+              <h3><i class="fas fa-briefcase"></i> Información Profesional</h3>
+              <div class="prof-content">
+                <div>
+                  <label>Título / Rubro</label>
+                  <p class="strong-text">{{ usuario.profesional.titulo }}</p>
+                </div>
+                <div>
+                  <label>Descripción</label>
+                  <p>{{ usuario.profesional.descripcion }}</p>
+                </div>
+                <div class="info-split">
+                  <div><label>Categoría</label><p>{{ usuario.profesional.categoria }}</p></div>
+                  <div style="text-align: right;"><label>Web</label><p style="color:#8b5cf6; font-weight:600;">{{ usuario.profesional.web }}</p></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="card info-card">
+              <h3><i class="fas fa-map-marker-alt"></i> Ubicación</h3>
+              <div class="location-box">
+                <div class="loc-header">
+                  <div class="loc-icon"><i class="fas fa-building"></i></div>
+                  <div class="loc-text">
+                    <div style="font-weight: 700; font-size: 14px;">{{ usuario.ubicacion.direccion }}</div>
+                    <div style="color: #6b7280; font-size: 13px;">{{ usuario.ubicacion.ciudad }}</div>
+                  </div>
+                </div>
+
+                <div class="map-wrapper" style="margin-top: 16px;">
+                  <iframe 
+                    [src]="obtenerUrlMapa(usuario.ubicacion.lat, usuario.ubicacion.lng)"
+                    width="100%" 
+                    height="150" 
+                    frameborder="0" 
+                    scrolling="no" 
+                    marginheight="0" 
+                    marginwidth="0" 
+                    style="border-radius: 12px; border: 1px solid #e5e7eb;">
+                  </iframe>
+                </div>
+              </div>
+            </div>
+
+            <div class="card sub-card free-tier">
+              <div class="sub-header" style="display:flex; justify-content:space-between; align-items:center;">
+                <h3><i class="fas fa-star"></i> Suscripción</h3>
+                <span class="sub-badge bg-gray">BÁSICA</span>
+              </div>
+              <div class="sub-body">
+                <label>Plan Actual</label>
+                <h2 class="plan-name">Gratis</h2>
+                <p style="font-size: 13px; color: #4b5563; margin-bottom: 20px;">
+                  Tienes funciones limitadas. Actualiza tu plan para desbloquear todo el potencial de Lattice.
+                </p>
+                <button class="btn-upgrade" (click)="openUpgradeModal()">
+                  <i class="fas fa-bolt"></i> Mejorar Plan
+                </button>
+              </div>
+            </div>
+
+          </div>
+
+          <div class="card preferences-card">
+            <div class="profile-header" style="margin-bottom: 20px;">
+              <h3 style="margin:0;"><i class="fas fa-cog"></i> Preferencias</h3>
+              <a href="#" style="color: #8b5cf6; font-size: 13px; font-weight: 600;">Editar</a>
+            </div>
+            <div class="pref-grid">
+              <div class="pref-item">
+                <div class="pref-icon"><i class="far fa-credit-card"></i></div>
+                <div class="pref-text"><strong>Visa •••• 4242</strong><span>Método de pago principal</span></div>
+              </div>
+              <div class="pref-item">
+                <div class="pref-icon"><i class="far fa-bell"></i></div>
+                <div class="pref-text"><strong>Notificaciones</strong><span>Push y Email activados</span></div>
+              </div>
+            </div>
+          </div>
+        }
+      }
+    }
+
+    @if (showUpgradeModal()) {
+      <div class="modal-overlay" (click)="closeUpgradeModal()">
+        <div class="modal-content modal-large" (click)="$event.stopPropagation()">
+          <div class="modal-header">
+            <h2>Da el siguiente paso en <span class="pro-text">automatización</span></h2>
+            <button class="close-btn" (click)="closeUpgradeModal()"><i class="fas fa-times"></i></button>
+          </div>
+          
+          <div class="pricing-grid">
+            <div class="pricing-card">
+              <div class="plan-header">
+                <h3>Automate Pro</h3>
+                <p>Automatiza con IA tu negocio y vende mucho más.</p>
+              </div>
+              <div class="plan-price">
+                <span class="amount">$70.000</span>
+                <span class="period">/mes</span>
+              </div>
+              <ul class="plan-features">
+                <li class="feature-title">Todo en plan Gratis, más:</li>
+                <li><i class="fas fa-check text-purple"></i> Embudo de chat automatizado</li>
+                <li><i class="fas fa-check text-purple"></i> Asistente virtual con IA</li>
+                <li><i class="fas fa-check text-purple"></i> Post venta inteligente</li>
+                <li><i class="fas fa-check text-purple"></i> Análisis de ganancias</li>
+              </ul>
+              <button class="btn-primary w-full" (click)="contactarEquipoTecnico('Automate Pro')">
+                Contactar equipo técnico
+              </button>
+            </div>
+
+            <div class="pricing-card premium">
+              <div class="badge-recommended">RECOMENDADO</div>
+              <div class="plan-header">
+                <h3>Secretar-IA Premium</h3>
+                <p>Tu propia secretaria virtual con identidad propia.</p>
+              </div>
+              <div class="plan-price">
+                <span class="amount">$130.000</span>
+                <span class="period">/mes</span>
+              </div>
+              <ul class="plan-features">
+                <li class="feature-title">Todo en Automate Pro, más:</li>
+                <li><i class="fas fa-check text-gold"></i> Identidad personalizada (IA)</li>
+                <li><i class="fas fa-check text-gold"></i> Comandos por voz y texto</li>
+                <li><i class="fas fa-check text-gold"></i> Ahorro del 90% de tu tiempo</li>
+              </ul>
+              <button class="btn-premium w-full" (click)="contactarEquipoTecnico('Secretar-IA Premium')">
+                Contactar equipo técnico
+              </button>
+            </div>
           </div>
         </div>
       </div>
+    }
 
-    </div>
-
-    <div class="card preferences-card">
-      <div class="profile-header" style="margin-bottom: 20px;">
-        <h3 style="margin:0;"><i class="fas fa-cog"></i> Preferencias</h3>
-        <a href="#" style="color: #8b5cf6; font-size: 13px; font-weight: 600;">Editar</a>
-      </div>
-      <div class="pref-grid">
-        <div class="pref-item">
-          <div class="pref-icon"><i class="far fa-credit-card"></i></div>
-          <div class="pref-text"><strong>Visa •••• 4242</strong><span>Método de pago principal</span></div>
-        </div>
-        <div class="pref-item">
-          <div class="pref-icon"><i class="far fa-bell"></i></div>
-          <div class="pref-text"><strong>Notificaciones</strong><span>Push y Email activados</span></div>
+    @if (showSuccessModal()) {
+      <div class="modal-overlay" style="z-index: 1050;" (click)="cerrarSuccessModal()">
+        <div class="modal-content success-modal" (click)="$event.stopPropagation()">
+          <div class="success-icon">
+            <i class="fas fa-check-circle"></i>
+          </div>
+          <h2>¡Datos Actualizados!</h2>
+          <p>Tu información se ha guardado y reflejado en el perfil correctamente.</p>
+          <button class="btn-primary" (click)="cerrarSuccessModal()">Aceptar</button>
         </div>
       </div>
-    </div>
+    }
 
   </main>
 </div>

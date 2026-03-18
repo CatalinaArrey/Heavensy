@@ -1,0 +1,21 @@
+{
+  "resumen": {
+    "gananciasTotales": 15450000,
+    "crecimientoGanancias": "+12%",
+    "pagosPendientes": 1850000,
+    "cantidadPendientes": 3
+  },
+  "datosFacturacion": {
+    "razonSocial": "Juan Pérez Servicios SPA",
+    "rut": "76.123.456-K",
+    "giro": "Consultoría...",
+    "direccion": "Av. Providencia 1234, Of 505, Santiago"
+  },
+  "historial": [
+    { "fecha": "24 Oct 2024", "folio": "#FAC-00128", "cliente": "TechSolutions Ltda.", "monto": 450000, "estado": "Pagada" },
+    { "fecha": "20 Oct 2024", "folio": "#BOL-04592", "cliente": "María González", "monto": 85000, "estado": "Pagada" },
+    { "fecha": "15 Oct 2024", "folio": "#FAC-00127", "cliente": "Constructora Andes", "monto": 1200000, "estado": "Pendiente" },
+    { "fecha": "01 Oct 2024", "folio": "#FAC-00126", "cliente": "Inversiones Sur", "monto": 650000, "estado": "Pendiente" },
+    { "fecha": "28 Sep 2024", "folio": "#FAC-00125", "cliente": "Cliente Cancelado", "monto": 0, "estado": "Anulada" }
+  ]
+}

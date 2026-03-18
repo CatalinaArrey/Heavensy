@@ -1,0 +1,21 @@
+{
+  "resumen": {
+    "ventasMes": 2450000,
+    "ventasCrecimiento": "+12%",
+    "nuevosClientes": 15,
+    "clientesCrecimiento": "+5",
+    "serviciosActivos": 8,
+    "calificacion": 4.8,
+    "resenas": 42
+  },
+  "notificaciones": [
+    { "titulo": "Nueva solicitud de servicio", "desc": "Carlos Ruiz te ha enviado una propuesta.", "tiempo": "Hace 15 min", "tipo": "red" },
+    { "titulo": "Pago recibido", "desc": "Factura #4023 pagada por Tech SpA.", "tiempo": "Hace 2 horas", "tipo": "blue" },
+    { "titulo": "Reseña recibida", "desc": "Ana M. te calificó con 5 estrellas.", "tiempo": "Ayer", "tipo": "gray" }
+  ],
+  "proximosTrabajos": [
+    { "iniciales": "MG", "cliente": "María González", "servicio": "Asesoría Tributaria Mensual", "fecha": "Hoy, 14 Dic", "hora": "15:00 - 16:00", "ubicacion": "Google Meet", "estado": "Confirmado" },
+    { "iniciales": "TS", "cliente": "Tech Solutions SpA", "servicio": "Auditoría Financiera Q4", "fecha": "Mañana, 15 Dic", "hora": "10:00 - 12:00", "ubicacion": "Of. Cliente", "estado": "Pendiente" },
+    { "iniciales": "CR", "cliente": "Carlos Ruiz", "servicio": "Planificación 2025", "fecha": "Jueves, 17 Dic", "hora": "09:00 - 10:30", "ubicacion": "Zoom", "estado": "En Preparación" }
+  ]
+}

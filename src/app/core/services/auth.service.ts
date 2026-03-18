@@ -1,8 +1,8 @@
 import { Injectable, inject } from '@angular/core';
 import { HttpClient } from '@angular/common/http';
 import { environment } from '../../../environments/environment';
-import { tap } from 'rxjs/operators';
-import { Observable, of } from 'rxjs';
+import { tap, timeout, catchError } from 'rxjs/operators';
+import { Observable, of, throwError } from 'rxjs';
 
 @Injectable({ providedIn: 'root' })
 export class AuthService {
@@ -52,7 +52,17 @@ export class AuthService {
 
   logout() {
     return this.http.post(`${environment.apiUrl}/auth/logout`, {}).pipe(
-      tap(() => localStorage.removeItem(this.tokenKey))
+      timeout(5000),
+      tap(() => this.clearTokens()),
+      catchError(error => {
+        this.clearTokens();
+        return of({});
+      })
     );
+  }
+
+  private clearTokens() {
+    localStorage.removeItem(this.tokenKey);
+    localStorage.removeItem('refresh_token');
   }
 }

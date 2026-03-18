@@ -1,0 +1,18 @@
+{
+  "pais": "Chile",
+  "instituciones": [
+    { "codigo": "001", "nombre": "Banco de Chile" },
+    { "codigo": "009", "nombre": "Banco Internacional" },
+    { "codigo": "012", "nombre": "Banco Estado" },
+    { "codigo": "014", "nombre": "Scotiabank Chile" },
+    { "codigo": "016", "nombre": "Banco de Crédito e Inversiones (BCI)" },
+    { "codigo": "028", "nombre": "Banco BICE" },
+    { "codigo": "031", "nombre": "HSBC Bank (Chile)" },
+    { "codigo": "037", "nombre": "Banco Santander-Chile" },
+    { "codigo": "039", "nombre": "Itaú Corpbanca" },
+    { "codigo": "049", "nombre": "Banco Security" },
+    { "codigo": "051", "nombre": "Banco Falabella" },
+    { "codigo": "053", "nombre": "Banco Ripley" },
+    { "codigo": "055", "nombre": "Banco Consorcio" }
+  ]
+}
